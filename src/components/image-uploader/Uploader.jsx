@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { t } from "i18next";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
-// import cloudinary from "cloudinary/lib/cloudinary";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { FiUploadCloud, FiXCircle } from "react-icons/fi";
@@ -33,7 +32,7 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
       "image/*": [".jpeg", ".jpg", ".png", ".webp"],
     },
     multiple: product ? true : false,
-    maxSize: 500000,
+    maxSize: 500000000,
     maxFiles: globalSetting?.number_of_image_per_product || 2,
     onDrop: (acceptedFiles) => {
       setFiles(
@@ -81,13 +80,13 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
         setLoading(true);
         setError("Uploading....");
 
-        if (product) {
-          const result = imageUrl?.find(
-            (img) => img === `${import.meta.env.VITE_APP_CLOUDINARY_URL}`
-          );
+        // if (product) {
+        //   const result = imageUrl?.find(
+        //     (img) => img === `${import.meta.env.VITE_APP_CLOUDINARY_URL}`
+        //   );
 
-          if (result) return setLoading(false);
-        }
+        //   if (result) return setLoading(false);
+        // }
 
         const name = file.name.replaceAll(/\s/g, "");
         const public_id = name?.substring(0, name.lastIndexOf("."));
@@ -96,14 +95,14 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
         formData.append("file", file);
         formData.append(
           "upload_preset",
-          import.meta.env.VITE_APP_CLOUDINARY_UPLOAD_PRESET
+          import.meta.env.VITE_APP_CLOUDINARY_UPLOAD_PRESET,
         );
         formData.append("cloud_name", import.meta.env.VITE_APP_CLOUD_NAME);
         formData.append("folder", folder);
         formData.append("public_id", public_id);
 
         axios({
-          url: import.meta.env.VITE_APP_CLOUDINARY_URL,
+          url: `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_APP_CLOUD_NAME}/image/upload`,
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -151,16 +150,16 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
 
   const handleRemoveImage = async (img) => {
     try {
-      // const url = img.substring(img.length - 25);
+      const url = img.substring(img.length - 25);
       // const url = img.split("/").pop().split(".")[0];
-      // const public_id = `${folder}/${url}`;
+      const public_id = `${folder}/${url}`;
 
-      // const res = await cloudinary.v2.uploader.destroy(public_id);
+      const res = await cloudinary.v2.uploader.destroy(public_id);
 
       setLoading(false);
-      // notifyError(
-      //   res.result === "ok" ? "Image delete successfully!" : res.result
-      // );
+      notifyError(
+        res.result === "ok" ? "Image delete successfully!" : res.result
+      );
       notifyError("Image delete successfully!");
       if (product) {
         const result = imageUrl?.filter((i) => i !== img);
