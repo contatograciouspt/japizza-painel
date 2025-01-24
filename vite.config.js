@@ -11,10 +11,9 @@ dns.setDefaultResultOrder("verbatim");
 
 export default defineConfig({
   // root: "./", // Set the root directory of your project
-  // base: "/", // Set the base URL path for your application
-
+  base: "/", // Set the base URL path for your application
   build: {
-    outDir: "build", // comment this if you select vite as project when deploy
+    outDir: "dist", // comment this if you select vite as project when deploy
     assetsDir: "@/assets", // Set the directory for the static assets
     // sourcemap: process.env.__DEV__ === "true",
     rollupOptions: {
@@ -58,10 +57,10 @@ export default defineConfig({
         scope: ".",
         start_url: ".",
         id: ".",
-        short_name: "Kachabazar - E-Commerce Website",
-        name: "Kachabazar | React eCommerce Admin Dashboard",
+        short_name: "Dashboard Jazpizza",
+        name: "Japizza | Japizza eCommerce Admin Dashboard",
         description:
-          "Kachabazar : React Grocery & Organic Food Store e-commerce Admin Dashboard",
+          "Japizza - A melhor pizza de portugal",
         icons: [
           {
             src: "favicon.ico",
@@ -98,7 +97,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api/": {
-        target: "http://localhost:5065",
+        target: "https://japizza-backend.onrender.com",
         changeOrigin: true,
       },
     },
