@@ -45,7 +45,7 @@ const useBulkActionSubmit = (ids, lang = "en", childId) => {
 
   const onSubmit = async (data) => {
     // console.log('data', data);
-    return notifyError("This feature is disabled for demo!");
+    // return notifyError("This feature is disabled for demo!");
     try {
       // product data
       const productData = {

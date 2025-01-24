@@ -378,7 +378,7 @@ const useFilter = (data) => {
     if (newProducts.length < 1) {
       notifyError("Please upload/select csv file first!");
     } else {
-      return notifyError("This feature is disabled for demo!");
+      // return notifyError("This feature is disabled for demo!");
       ProductServices.addAllProducts(newProducts)
         .then((res) => {
           notifySuccess(res.message);
@@ -538,7 +538,7 @@ const useFilter = (data) => {
   };
 
   const handleUploadMultiple = (e) => {
-    return notifyError("This feature is disabled for demo!");
+    // return notifyError("This feature is disabled for demo!");
 
     if (selectedFile.length > 1) {
       if (location.pathname === "/categories") {

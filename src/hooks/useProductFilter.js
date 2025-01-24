@@ -52,7 +52,7 @@ const useProductFilter = (data) => {
   };
 
   const handleUploadProducts = () => {
-    return notifyError("This feature is disabled for demo!");
+    // return notifyError("This feature is disabled for demo!");
     if (newProducts.length < 1) {
       notifyError("Please upload/select csv file first!");
     } else {
@@ -142,7 +142,7 @@ const useProductFilter = (data) => {
   };
 
   const handleUploadMultiple = (e) => {
-    return notifyError("This feature is disabled for demo!");
+    // return notifyError("This feature is disabled for demo!");
     if (selectedFile.length > 1) {
       setLoading(true);
       let productDataValidation = selectedFile.map((value) =>

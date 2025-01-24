@@ -143,7 +143,7 @@ const useStoreHomeSubmit = () => {
   };
 
   const onSubmit = async (data) => {
-    return notifyError("This feature is disabled for demo!");
+    // return notifyError("This feature is disabled for demo!");
     try {
       setIsSubmitting(true);
 
