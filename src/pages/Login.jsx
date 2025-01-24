@@ -12,11 +12,12 @@ import ImageLight from "@/assets/img/login-office.jpeg";
 import ImageDark from "@/assets/img/login-office-dark.jpeg";
 import useLoginSubmit from "@/hooks/useLoginSubmit";
 import CMButton from "@/components/form/button/CMButton";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
   const { t } = useTranslation();
-  const { onSubmit, register, handleSubmit, errors, loading } =
-    useLoginSubmit();
+  const { onSubmit, register, handleSubmit, errors, loading } = useLoginSubmit();
+  const [showPass, setShowPass] = React.useState(false);
 
   return (
     <>
@@ -57,18 +58,26 @@ const Login = () => {
                   <Error errorName={errors.email} />
                   <div className="mt-6"></div>
                   <LabelArea label="Password" />
-                  <InputArea
-                    required={true}
-                    register={register}
-                    defaultValue="12345678"
-                    label="Password"
-                    name="password"
-                    type="password"
-                    autocomplete="current-password"
-                    placeholder="***************"
-                  />
+                  <div className="relative">
+                    <InputArea
+                      required={true}
+                      register={register}
+                      defaultValue="12345678"
+                      label="Password"
+                      name="password"
+                      type={showPass ? "text" : "password"}
+                      autocomplete="current-password"
+                      placeholder="***************"
+                    />
+                    <button
+                      type="button"
+                      className="text-gray-950 absolute inset-y-0 right-0 pr-3 flex items-center text-sm"
+                      onClick={() => setShowPass(!showPass)}
+                    >
+                      {showPass ? (<AiFillEyeInvisible />) : (<AiFillEye />)}
+                    </button>
+                  </div>
                   <Error errorName={errors.password} />
-
                   {loading ? (
                     <CMButton
                       disabled={loading}
@@ -87,22 +96,7 @@ const Login = () => {
                     </Button>
                   )}
                   <hr className="my-10" />
-                  <button
-                    disabled
-                    className="text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-serif text-center justify-center rounded-md focus:outline-none text-gray-700 bg-gray-100 shadow-sm my-2 md:px-2 lg:px-3 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-blue-600 h-11 md:h-12 w-full mr-2"
-                  >
-                    <ImFacebook className="w-4 h-4 mr-2" />{" "}
-                    <span className="ml-2"> {t("LoginWithFacebook")} </span>
-                  </button>
-                  <button
-                    disabled
-                    className="text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-serif text-center justify-center rounded-md focus:outline-none text-gray-700 bg-gray-100 shadow-sm my-2  md:px-2 lg:px-3 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-red-500 h-11 md:h-12 w-full"
-                  >
-                    <ImGoogle className="w-4 h-4 mr-2" />{" "}
-                    <span className="ml-2">{t("LoginWithGoogle")}</span>
-                  </button>
                 </form>
-
                 <p className="mt-4">
                   <Link
                     className="text-sm font-medium text-emerald-500 dark:text-emerald-400 hover:underline"
