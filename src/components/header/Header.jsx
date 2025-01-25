@@ -19,8 +19,8 @@ import { useTranslation } from "react-i18next";
 
 //internal import
 
-import de from "@/assets/img/de.svg";
 import en from "@/assets/img/us.svg";
+import pt from "@/assets/img/pt.svg";
 import ellipse from "@/assets/img/icons/ellipse.svg";
 import { AdminContext } from "@/context/AdminContext";
 import { SidebarContext } from "@/context/SidebarContext";
@@ -38,7 +38,7 @@ const Header = () => {
   const pRef = useRef();
   const nRef = useRef();
 
-  const currentLanguageCode = cookies.get("i18next") || "en";
+  const currentLanguageCode = cookies.get("i18next") || "pt";
   const { t } = useTranslation();
   const { updated, setUpdated } = useNotification();
   const { showDateTimeFormat } = useUtilsFunction();
@@ -174,34 +174,18 @@ const Header = () => {
             <li className="changeLanguage">
               <div className="dropdown">
                 <button className="dropbtn focus:outline-none">
-                  {currentLanguageCode === "de" ? (
-                    <img src={de} width={16} alt="lang" className="mx-2" />
-                  ) : (
-                    <img src={en} className="mx-2" alt="lang" width={16} />
-                  )}
-                  {currentLanguageCode === "de" ? (
-                    <span className="text-gray-700 dark:text-gray-400">
-                      GERMAN
-                    </span>
-                  ) : (
-                    <span className="text-gray-700 dark:text-gray-400">
-                      ENGLISH
-                    </span>
-                  )}
+                  <img src={pt} width={16} alt="lang" className="mx-2" />
+                  <span className="text-gray-700 dark:text-gray-400">
+                    PORTUGUESE
+                  </span>
                 </button>
 
                 <div className="dropdown-content">
                   <div
-                    onClick={() => handleLanguageChange("en")}
+                    onClick={() => handleLanguageChange("pt")}
                     className="focus:outline-none cursor-pointer"
                   >
-                    <img src={en} width={16} alt="lang" /> English{" "}
-                  </div>
-                  <div
-                    onClick={() => handleLanguageChange("de")}
-                    className="focus:outline-none cursor-pointer"
-                  >
-                    <img src={de} width={16} alt="lang" /> German
+                    <img src={pt} width={16} alt="lang" /> Portuguese
                   </div>
                 </div>
               </div>
@@ -242,15 +226,14 @@ const Header = () => {
               {notificationOpen && (
                 <div className="origin-top-right absolute md:right-0 -right-3 top-2 rounded-md shadow-lg bg-white dark:bg-gray-800  focus:outline-none">
                   <div
-                    className={`${
-                      data?.length === 0
+                    className={`${data?.length === 0
                         ? "h-40"
                         : data?.length <= 2
-                        ? "h-40"
-                        : data?.length <= 3
-                        ? "h-56"
-                        : "h-330"
-                    } md:w-400 w-300`}
+                          ? "h-40"
+                          : data?.length <= 3
+                            ? "h-56"
+                            : "h-330"
+                      } md:w-400 w-300`}
                   >
                     <Scrollbars>
                       {data?.length === 0 ? (
@@ -261,20 +244,18 @@ const Header = () => {
                             return (
                               <li
                                 key={index + 1}
-                                className={`flex justify-between items-center font-serif font-normal text-sm py-3 border-b border-gray-100 dark:border-gray-700 px-3 transition-colors duration-150 hover:bg-gray-100 ${
-                                  value.status === "unread" && "bg-gray-50"
-                                } hover:text-gray-800 dark:text-gray-400 ${
-                                  value.status === "unread" &&
+                                className={`flex justify-between items-center font-serif font-normal text-sm py-3 border-b border-gray-100 dark:border-gray-700 px-3 transition-colors duration-150 hover:bg-gray-100 ${value.status === "unread" && "bg-gray-50"
+                                  } hover:text-gray-800 dark:text-gray-400 ${value.status === "unread" &&
                                   "dark:bg-gray-800"
-                                } dark:hover:bg-gray-900  dark:hover:text-gray-100 cursor-pointer`}
+                                  } dark:hover:bg-gray-900  dark:hover:text-gray-100 cursor-pointer`}
                               >
                                 <Link
                                   to={
                                     value.productId
                                       ? `/product/${value.productId}`
                                       : value.orderId
-                                      ? `/order/${value.orderId}`
-                                      : "/our-staff"
+                                        ? `/order/${value.orderId}`
+                                        : "/our-staff"
                                   }
                                   className="flex items-center"
                                   onClick={() =>
