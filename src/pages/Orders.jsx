@@ -30,6 +30,7 @@ import TableLoading from "@/components/preloader/TableLoading";
 import spinnerLoadingImage from "@/assets/img/spinner.gif";
 import useUtilsFunction from "@/hooks/useUtilsFunction";
 import AnimatedContent from "@/components/common/AnimatedContent";
+import TabelaPedidosCustomizada from "@/components/vivawallet/TabelaPedidosCustomizada";
 
 const Orders = () => {
   const {
@@ -269,6 +270,11 @@ const Orders = () => {
           </CardBody>
         </Card>
       </AnimatedContent>
+      
+      {/* Nova tabela customizada para receber dados de orders via viva wallet */}
+
+      {/* <TabelaPedidosCustomizada /> */}
+
       {data?.methodTotals?.length > 0 && (
         <Card className="min-w-0 shadow-xs overflow-hidden bg-white dark:bg-gray-800 rounded-t-lg rounded-0 mb-4">
           <CardBody>

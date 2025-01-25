@@ -1,4 +1,4 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+import defaultTheme from "tailwindcss/defaultTheme"
 
 const config = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
