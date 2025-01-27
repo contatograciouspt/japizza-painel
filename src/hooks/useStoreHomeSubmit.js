@@ -5,11 +5,12 @@ import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 //internal import
-
+import useUtilsFunction from "./useUtilsFunction";
+import useDisableForDemo from "./useDisableForDemo";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import { SidebarContext } from "@/context/SidebarContext";
 import SettingServices from "@/services/SettingServices";
-import useUtilsFunction from "./useUtilsFunction";
+import CouponServices from "@/services/CouponServices";
 
 const createEditorState = (text) => {
   const contentState = stateFromHTML(text);
@@ -21,6 +22,7 @@ const useStoreHomeSubmit = () => {
   const { showingTranslateValue } = useUtilsFunction();
 
   const [resData, setResData] = useState([]);
+  const [coupons, setCoupons] = useState([]);
   const [couponList, setCouponList] = useState([]);
   const [couponList1, setCouponList1] = useState([]);
   const [language, setLanguage] = useState(lang || "en");
@@ -124,6 +126,7 @@ const useStoreHomeSubmit = () => {
   const [termsConditionsHeaderBg, setTermsConditionsHeaderBg] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { handleDisableForDemo } = useDisableForDemo();
 
   const {
     register,
@@ -143,7 +146,9 @@ const useStoreHomeSubmit = () => {
   };
 
   const onSubmit = async (data) => {
-    // return notifyError("This feature is disabled for demo!");
+    // if (handleDisableForDemo()) {
+    //   return; // Exit the function if the feature is disabled
+    // }
     try {
       setIsSubmitting(true);
 
@@ -225,7 +230,7 @@ const useStoreHomeSubmit = () => {
             delivery_status: quickDelivery,
             popular_products_status: popularProducts,
             discount_product_status: latestDiscounted,
-            discount_coupon_code: couponList,
+            discount_coupon_code: couponList?.map((coupon) => coupon?.value),
             place_holder_img: placeholderImage,
             feature_promo_status: featurePromo,
 
@@ -506,7 +511,7 @@ const useStoreHomeSubmit = () => {
               ...resData?.offers?.title,
               [language]: data.offers_page_title || "",
             }),
-            coupon_code: couponList1,
+            coupon_code: couponList1?.map((coupon) => coupon?.value),
           },
           privacy_policy: {
             status: privacyPolicy,
@@ -1115,7 +1120,9 @@ const useStoreHomeSubmit = () => {
     const getStoreCustomizationData = async () => {
       try {
         const res = await SettingServices.getStoreCustomizationSetting();
+
         // console.log("res", res);
+
         if (res) {
           setIsSave(false);
           setResData(res);
@@ -1170,7 +1177,17 @@ const useStoreHomeSubmit = () => {
           setLatestDiscounted(res?.home?.discount_product_status);
           setDailyNeeds(res?.home?.daily_needs_status);
           setFeaturePromo(res?.home?.feature_promo_status);
-          setCouponList(res?.home?.discount_coupon_code);
+          // setCouponList(res?.home?.discount_coupon_code);
+          const discountCouponCode = res?.home?.discount_coupon_code?.map(
+            (coupon) => {
+              const newObj = {
+                label: coupon,
+                value: coupon,
+              };
+              return newObj;
+            }
+          );
+          setCouponList(discountCouponCode || []);
 
           setValue(
             "discount_title",
@@ -1911,7 +1928,24 @@ const useStoreHomeSubmit = () => {
 
           setValue("offers_page_title", res?.offers?.title[language || "en"]);
           // setValue('offers_coupon_code', res.offers_coupon_code);
-          setCouponList1(res?.offers?.coupon_code);
+          // setCouponList1(res?.offers?.coupon_code);
+          const coupon_code = res?.offers?.coupon_code?.map((coupon) => {
+            const newObj = {
+              label: coupon,
+              value: coupon,
+            };
+            return newObj;
+          });
+          setCouponList1(coupon_code || []);
+          const resCoupon = await CouponServices.getAllCoupons();
+          const result = resCoupon?.map((coupon) => {
+            const newObj = {
+              label: coupon?.couponCode,
+              value: coupon?.couponCode,
+            };
+            return newObj;
+          });
+          setCoupons(result);
 
           //for seo
           setMetaImg(res.seo.meta_img);
@@ -1944,6 +1978,7 @@ const useStoreHomeSubmit = () => {
     setValue,
     errors,
     favicon,
+    coupons,
     setFavicon,
     metaImg,
     setMetaImg,

@@ -61,6 +61,8 @@ const CouponDrawer = ({ id }) => {
                   imageUrl={imageUrl}
                   setImageUrl={setImageUrl}
                   folder="coupon"
+                  targetWidth={238}
+                  targetHeight={238}
                 />
               </div>
             </div>

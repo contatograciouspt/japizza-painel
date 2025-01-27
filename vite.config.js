@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 import { VitePWA } from "vite-plugin-pwa";
 import compression from "vite-plugin-compression2";
+import { visualizer } from "rollup-plugin-visualizer";
 
 import dns from "dns";
 import path from "path";
@@ -11,9 +12,10 @@ dns.setDefaultResultOrder("verbatim");
 
 export default defineConfig({
   // root: "./", // Set the root directory of your project
-  base: "/", // Set the base URL path for your application
+  // base: "/", // Set the base URL path for your application
+
   build: {
-    outDir: "dist", // comment this if you select vite as project when deploy
+    outDir: "build", // comment this if you select vite as project when deploy
     assetsDir: "@/assets", // Set the directory for the static assets
     // sourcemap: process.env.__DEV__ === "true",
     rollupOptions: {
@@ -57,10 +59,10 @@ export default defineConfig({
         scope: ".",
         start_url: ".",
         id: ".",
-        short_name: "Dashboard Jazpizza",
-        name: "Japizza | Japizza eCommerce Admin Dashboard",
+        short_name: "Kachabazar - E-Commerce Website",
+        name: "Kachabazar | React eCommerce Admin Dashboard",
         description:
-          "Japizza - A melhor pizza de portugal",
+          "Kachabazar : React Grocery & Organic Food Store e-commerce Admin Dashboard",
         icons: [
           {
             src: "favicon.ico",
@@ -92,12 +94,16 @@ export default defineConfig({
       },
     }),
     compression(),
+    visualizer({
+      filename: "statistics.html",
+      open: true,
+    }),
   ],
 
   server: {
     proxy: {
       "/api/": {
-        target: "https://japizza-backend.onrender.com",
+        target: "http://localhost:5065",
         changeOrigin: true,
       },
     },

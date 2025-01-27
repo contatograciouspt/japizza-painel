@@ -2,15 +2,20 @@ import React, { useContext } from "react";
 import Switch from "react-switch";
 
 //internal import
-
+import useGetCData from "@/hooks/useGetCData";
 import AdminServices from "@/services/AdminServices";
 import { SidebarContext } from "@/context/SidebarContext";
 import { notifyError, notifySuccess } from "@/utils/toast";
 
 const ActiveInActiveButton = ({ id, status, option, staff }) => {
   const { setIsUpdate } = useContext(SidebarContext);
+  const { role } = useGetCData();
   const handleChangeStatus = async (id, staff) => {
     // return notifyError("This option disabled for this option!");
+    if (!(role === "Super Admin" || role === "Admin"))
+      return notifyError(
+        "Only Super Admin and Admin can enable/disable any staff!"
+      );
     try {
       let newStatus;
       if (status === "Active") {

@@ -22,69 +22,59 @@ const useLoginSubmit = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = ({ name, email, verifyEmail, password, role }) => {
+  const onSubmit = async ({ name, email, verifyEmail, password, role }) => {
     setLoading(true);
     const cookieTimeOut = 0.5;
-    // return;
 
-    if (location.pathname === "/login") {
-      reduxDispatch(removeSetting("globalSetting"));
-      AdminServices.loginAdmin({ email, password })
-        .then((res) => {
-          if (res) {
-            setLoading(false);
-            notifySuccess("Login Success!");
-            dispatch({ type: "USER_LOGIN", payload: res });
-            Cookies.set("adminInfo", JSON.stringify(res), {
-              expires: cookieTimeOut,
-              sameSite: "None",
-              secure: true,
-            });
-            history.replace("/");
-          }
-        })
-        .catch((err) => {
-          notifyError(err?.response?.data?.message || err?.message);
-          // notifyError(err ? err?.response?.data?.message : err?.message);
-          setLoading(false);
-        });
-    }
+    try {
+      if (location.pathname === "/login") {
+        reduxDispatch(removeSetting("globalSetting"));
+        const res = await AdminServices.loginAdmin({ email, password });
 
-    if (location.pathname === "/signup") {
-      AdminServices.registerAdmin({ name, email, password, role })
-        .then((res) => {
-          if (res) {
-            setLoading(false);
-            notifySuccess("Register Success!");
-            dispatch({ type: "USER_LOGIN", payload: res });
-            Cookies.set("adminInfo", JSON.stringify(res), {
-              expires: cookieTimeOut,
-              sameSite: "None",
-              secure: true,
-            });
-            history.replace("/");
-          }
-        })
-        .catch((err) => {
-          notifyError(err?.response?.data?.message || err?.message);
-          // notifyError(err ? err?.response?.data?.message : err?.message);
-          setLoading(false);
-        });
-    }
+        if (res) {
+          notifySuccess("Login Success!");
+          dispatch({ type: "USER_LOGIN", payload: res });
+          Cookies.set("adminInfo", JSON.stringify(res), {
+            expires: cookieTimeOut,
+            sameSite: "None",
+            secure: true,
+          });
+          history.replace("/dashboard");
+        }
+      }
 
-    if (location.pathname === "/forgot-password") {
-      AdminServices.forgetPassword({ verifyEmail })
-        .then((res) => {
-          setLoading(false);
-          notifySuccess(res.message);
-        })
-        .catch((err) => {
-          setLoading(false);
-          notifyError(err?.response?.data?.message || err?.message);
-          // notifyError(err ? err?.response?.data?.message : err?.message);
+      if (location.pathname === "/signup") {
+        const res = await AdminServices.registerAdmin({
+          name,
+          email,
+          password,
+          role,
         });
+
+        if (res) {
+          notifySuccess("Register Success!");
+          dispatch({ type: "USER_LOGIN", payload: res });
+          Cookies.set("adminInfo", JSON.stringify(res), {
+            expires: cookieTimeOut,
+            sameSite: "None",
+            secure: true,
+          });
+          history.replace("/");
+        }
+      }
+
+      if (location.pathname === "/forgot-password") {
+        const res = await AdminServices.forgetPassword({ verifyEmail });
+
+        notifySuccess(res.message);
+      }
+    } catch (err) {
+      notifyError(err?.response?.data?.message || err?.message);
+    } finally {
+      setLoading(false);
     }
   };
+
   return {
     onSubmit,
     register,

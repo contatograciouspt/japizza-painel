@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 //internal import
-
+import useDisableForDemo from "./useDisableForDemo";
 import { SidebarContext } from "@/context/SidebarContext";
 import SettingServices from "@/services/SettingServices";
 import { notifyError, notifySuccess } from "@/utils/toast";
@@ -24,6 +24,8 @@ const useStoreSettingSubmit = (id) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { handleDisableForDemo } = useDisableForDemo();
+
   const {
     register,
     handleSubmit,
@@ -32,8 +34,9 @@ const useStoreSettingSubmit = (id) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    // console.log("data", data);
-    // return notifyError("This feature is disabled for demo!");
+    // if (handleDisableForDemo()) {
+    //   return; // Exit the function if the feature is disabled
+    // }
     try {
       setIsSubmitting(true);
       const settingData = {

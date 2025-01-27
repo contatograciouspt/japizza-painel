@@ -1,7 +1,7 @@
-import ReactTagInput from "@pathofdev/react-tag-input";
 import { Button } from "@windmill/react-ui";
 import { useTranslation } from "react-i18next";
 import { FiSettings } from "react-icons/fi";
+import { MultiSelect } from "react-multi-select-component";
 
 //internal import
 
@@ -14,6 +14,7 @@ import Uploader from "@/components/image-uploader/Uploader";
 const Offer = ({
   errors,
   isSave,
+  coupons,
   register,
   setOffersPageHeader,
   offersPageHeader,
@@ -118,10 +119,11 @@ const Offer = ({
                 {t("SuperDiscountActiveCouponCode")}
               </label>
               <div className="sm:col-span-4">
-                <ReactTagInput
-                  placeholder={t("SuperDiscountActiveCouponCode")}
-                  tags={couponList1 || []}
-                  onChange={(variant) => setCouponList1(variant)}
+                <MultiSelect
+                  options={coupons}
+                  value={couponList1}
+                  onChange={(v) => setCouponList1(v)}
+                  labelledBy="Select Coupon"
                 />
               </div>
             </div>

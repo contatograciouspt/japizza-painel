@@ -1,7 +1,7 @@
-import ReactTagInput from "@pathofdev/react-tag-input";
 import { Button } from "@windmill/react-ui";
 import { useTranslation } from "react-i18next";
 import { FiSettings } from "react-icons/fi";
+import { MultiSelect } from "react-multi-select-component";
 
 import {
   Tab,
@@ -23,6 +23,7 @@ import SelectProductLimit from "@/components/form/selectOption/SelectProductLimi
 const HomePage = ({
   register,
   errors,
+  coupons,
   headerLogo,
   setHeaderLogo,
   sliderImage,
@@ -185,7 +186,12 @@ const HomePage = ({
                 {t("HeaderLogo")}
               </label>
               <div className="sm:col-span-4">
-                <Uploader imageUrl={headerLogo} setImageUrl={setHeaderLogo} />
+                <Uploader
+                  imageUrl={headerLogo}
+                  setImageUrl={setHeaderLogo}
+                  targetWidth={87}
+                  targetHeight={25}
+                />
               </div>
             </div>
           </div>
@@ -473,6 +479,8 @@ const HomePage = ({
                       <Uploader
                         imageUrl={sliderImage}
                         setImageUrl={setSliderImage}
+                        targetWidth={950}
+                        targetHeight={400}
                       />
                     </div>
                   </div>
@@ -554,6 +562,8 @@ const HomePage = ({
                       <Uploader
                         imageUrl={sliderImageTwo}
                         setImageUrl={setSliderImageTwo}
+                        targetWidth={950}
+                        targetHeight={400}
                       />
                     </div>
                   </div>
@@ -631,6 +641,8 @@ const HomePage = ({
                       <Uploader
                         imageUrl={sliderImageThree}
                         setImageUrl={setSliderImageThree}
+                        targetWidth={950}
+                        targetHeight={400}
                       />
                     </div>
                   </div>
@@ -708,6 +720,8 @@ const HomePage = ({
                       <Uploader
                         imageUrl={sliderImageFour}
                         setImageUrl={setSliderImageFour}
+                        targetWidth={950}
+                        targetHeight={400}
                       />
                     </div>
                   </div>
@@ -784,6 +798,8 @@ const HomePage = ({
                       <Uploader
                         imageUrl={sliderImageFive}
                         setImageUrl={setSliderImageFive}
+                        targetWidth={950}
+                        targetHeight={400}
                       />
                     </div>
                   </div>
@@ -948,10 +964,11 @@ const HomePage = ({
                 {t("SuperDiscountActiveCouponCode")}
               </label>
               <div className="sm:col-span-4">
-                <ReactTagInput
-                  placeholder="Enter the coupon code from coupon table and click inter"
-                  tags={couponList || []}
-                  onChange={(variant) => setCouponList(variant)}
+                <MultiSelect
+                  options={coupons}
+                  value={couponList}
+                  onChange={(v) => setCouponList(v)}
+                  labelledBy="Select Coupon"
                 />
               </div>
             </div>

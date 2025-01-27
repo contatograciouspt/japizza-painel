@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import { SidebarContext } from "@/context/SidebarContext";
 import ProductServices from "@/services/ProductServices";
 import { notifyError, notifySuccess } from "@/utils/toast";
+import useDisableForDemo from "./useDisableForDemo";
 
 // custom product upload validation schema
 const schema = {
@@ -39,6 +40,8 @@ const useProductFilter = (data) => {
   const [filename, setFileName] = useState("");
   const [isDisabled, setIsDisable] = useState(false);
 
+  const { handleDisableForDemo } = useDisableForDemo();
+
   //service data filtering
   const serviceData = data;
 
@@ -52,11 +55,12 @@ const useProductFilter = (data) => {
   };
 
   const handleUploadProducts = () => {
-    // return notifyError("This feature is disabled for demo!");
+    // if (handleDisableForDemo()) {
+    //   return; // Exit the function if the feature is disabled
+    // }
     if (newProducts.length < 1) {
       notifyError("Please upload/select csv file first!");
     } else {
-      // return notifySuccess("CRUD operation disable for demo!");
       ProductServices.addAllProducts(newProducts)
         .then((res) => {
           notifySuccess(res.message);
@@ -142,7 +146,9 @@ const useProductFilter = (data) => {
   };
 
   const handleUploadMultiple = (e) => {
-    // return notifyError("This feature is disabled for demo!");
+    if (handleDisableForDemo()) {
+      return; // Exit the function if the feature is disabled
+    }
     if (selectedFile.length > 1) {
       setLoading(true);
       let productDataValidation = selectedFile.map((value) =>

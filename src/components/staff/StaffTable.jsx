@@ -1,5 +1,6 @@
 import { Avatar, TableBody, TableCell, TableRow } from "@windmill/react-ui";
-import React from "react";
+import React, { useState } from "react";
+import { FiZoomIn } from "react-icons/fi";
 
 //internal import
 
@@ -7,10 +8,12 @@ import Status from "@/components/table/Status";
 import useUtilsFunction from "@/hooks/useUtilsFunction";
 import MainDrawer from "@/components/drawer/MainDrawer";
 import useToggleDrawer from "@/hooks/useToggleDrawer";
+import Tooltip from "@/components/tooltip/Tooltip";
 import StaffDrawer from "@/components/drawer/StaffDrawer";
 import DeleteModal from "@/components/modal/DeleteModal";
 import EditDeleteButton from "@/components/table/EditDeleteButton";
 import ActiveInActiveButton from "@/components/table/ActiveInActiveButton";
+import AccessListModal from "@/components/modal/AccessListModal";
 
 const StaffTable = ({ staffs, lang }) => {
   const {
@@ -23,10 +26,34 @@ const StaffTable = ({ staffs, lang }) => {
   } = useToggleDrawer();
 
   const { showDateFormat, showingTranslateValue } = useUtilsFunction();
+  // State for access list modal
+  const [selectedStaff, setSelectedStaff] = useState(null);
+  const [isAccessModalOpen, setIsAccessModalOpen] = useState(false);
+
+  // Function to open the access list modal
+  const handleAccessModalOpen = (staff) => {
+    setSelectedStaff(staff);
+    setIsAccessModalOpen(true);
+  };
+
+  // Function to close the access list modal
+  const handleAccessModalClose = () => {
+    setSelectedStaff(null);
+    setIsAccessModalOpen(false);
+  };
 
   return (
     <>
       <DeleteModal id={serviceId} title={title} />
+      {/* Access List Modal */}
+      {isAccessModalOpen && (
+        <AccessListModal
+          staff={selectedStaff}
+          isOpen={isAccessModalOpen}
+          onClose={handleAccessModalClose}
+          showingTranslateValue={showingTranslateValue}
+        />
+      )}
 
       <MainDrawer>
         <StaffDrawer id={serviceId} />
@@ -80,15 +107,28 @@ const StaffTable = ({ staffs, lang }) => {
             </TableCell>
 
             <TableCell>
-              <EditDeleteButton
-                id={staff._id}
-                staff={staff}
-                isSubmitting={isSubmitting}
-                handleUpdate={handleUpdate}
-                handleModalOpen={handleModalOpen}
-                handleResetPassword={handleResetPassword}
-                title={showingTranslateValue(staff?.name)}
-              />
+              <div className="flex justify-between items-center">
+                <button
+                  onClick={() => handleAccessModalOpen(staff)}
+                  className="text-gray-400"
+                >
+                  <Tooltip
+                    id="view"
+                    Icon={FiZoomIn}
+                    title="View Access Route"
+                    bgColor="#059669"
+                  />
+                </button>
+                <EditDeleteButton
+                  id={staff._id}
+                  staff={staff}
+                  isSubmitting={isSubmitting}
+                  handleUpdate={handleUpdate}
+                  handleModalOpen={handleModalOpen}
+                  handleResetPassword={handleResetPassword}
+                  title={showingTranslateValue(staff?.name)}
+                />
+              </div>
             </TableCell>
           </TableRow>
         ))}

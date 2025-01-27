@@ -7,6 +7,8 @@ import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 //internal import
+import useUtilsFunction from "./useUtilsFunction";
+import useDisableForDemo from "./useDisableForDemo";
 import { SidebarContext } from "@/context/SidebarContext";
 import AttributeServices from "@/services/AttributeServices";
 import CategoryServices from "@/services/CategoryServices";
@@ -15,10 +17,7 @@ import CurrencyServices from "@/services/CurrencyServices";
 import CustomerServices from "@/services/CustomerServices";
 import LanguageServices from "@/services/LanguageServices";
 import ProductServices from "@/services/ProductServices";
-import SettingServices from "@/services/SettingServices";
 import { notifyError, notifySuccess } from "@/utils/toast";
-import useAsync from "@/hooks/useAsync";
-import useUtilsFunction from "./useUtilsFunction";
 
 const categorySchema = {
   type: "object",
@@ -115,6 +114,8 @@ const useFilter = (data) => {
   const location = useLocation();
   const { lang, setIsUpdate, setLoading } = useContext(SidebarContext);
   const { globalSetting } = useUtilsFunction();
+
+  const { handleDisableForDemo } = useDisableForDemo();
 
   //service data filtering
   const serviceData = useMemo(() => {
@@ -378,7 +379,9 @@ const useFilter = (data) => {
     if (newProducts.length < 1) {
       notifyError("Please upload/select csv file first!");
     } else {
-      // return notifyError("This feature is disabled for demo!");
+      if (handleDisableForDemo()) {
+        return; // Exit the function if the feature is disabled
+      }
       ProductServices.addAllProducts(newProducts)
         .then((res) => {
           notifySuccess(res.message);
@@ -388,7 +391,9 @@ const useFilter = (data) => {
   };
   const handleSelectFile = (e) => {
     e.preventDefault();
-    // return notifyError("This feature is disabled for demo!");
+    if (handleDisableForDemo()) {
+      return; // Exit the function if the feature is disabled
+    }
 
     const fileReader = new FileReader();
     const file = e.target?.files[0];
@@ -538,7 +543,9 @@ const useFilter = (data) => {
   };
 
   const handleUploadMultiple = (e) => {
-    // return notifyError("This feature is disabled for demo!");
+    if (handleDisableForDemo()) {
+      return; // Exit the function if the feature is disabled
+    }
 
     if (selectedFile.length > 1) {
       if (location.pathname === "/categories") {

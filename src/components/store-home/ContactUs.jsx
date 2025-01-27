@@ -372,6 +372,8 @@ const ContactUs = ({
                 <Uploader
                   imageUrl={contactMidLeftColImage}
                   setImageUrl={setContactMidLeftColImage}
+                  targetWidth={874}
+                  targetHeight={877}
                 />
               </div>
             </div>

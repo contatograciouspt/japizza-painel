@@ -202,6 +202,8 @@ const CategoryDrawer = ({ id, data }) => {
                   imageUrl={imageUrl}
                   setImageUrl={setImageUrl}
                   folder="category"
+                  targetWidth={238}
+                  targetHeight={238}
                 />
               </div>
             </div>

@@ -1,19 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 //internal import
+import useDisableForDemo from "./useDisableForDemo";
 import { SidebarContext } from "@/context/SidebarContext";
 import SettingServices from "@/services/SettingServices";
 import { notifyError, notifySuccess } from "@/utils/toast";
-import { useDispatch } from "react-redux";
 import { removeSetting } from "@/reduxStore/slice/settingSlice";
 
 const useSettingSubmit = (id) => {
   const dispatch = useDispatch();
   const { setIsUpdate } = useContext(SidebarContext);
   const [isSave, setIsSave] = useState(true);
+  const [enableInvoice, setEnableInvoice] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { handleDisableForDemo } = useDisableForDemo();
 
   const {
     register,
@@ -27,7 +30,9 @@ const useSettingSubmit = (id) => {
 
   const onSubmit = async (data) => {
     // console.log("data", data);
-    // return notifyError("This feature is disabled for demo!");
+    // if (handleDisableForDemo()) {
+    //   return; // Exit the function if the feature is disabled
+    // }
     try {
       setIsSubmitting(true);
       const settingData = {
@@ -47,6 +52,8 @@ const useSettingSubmit = (id) => {
           default_currency: data.default_currency,
           default_time_zone: data.default_time_zone,
           default_date_format: data.default_date_format,
+          email_to_customer: enableInvoice,
+          from_email: data.from_email,
         },
       };
 
@@ -107,6 +114,8 @@ const useSettingSubmit = (id) => {
           setValue("default_currency", res.default_currency);
           setValue("default_time_zone", res?.default_time_zone);
           setValue("default_date_format", res?.default_date_format);
+          setValue("from_email", res?.from_email);
+          setEnableInvoice(res?.email_to_customer || false);
         }
       } catch (err) {
         notifyError(err?.response?.data?.message || err?.message);
@@ -120,6 +129,8 @@ const useSettingSubmit = (id) => {
     isSave,
     isSubmitting,
     onSubmit,
+    enableInvoice,
+    setEnableInvoice,
     handleSubmit,
   };
 };

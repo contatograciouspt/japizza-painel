@@ -5,38 +5,44 @@ import { useDropzone } from "react-dropzone";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { FiUploadCloud, FiXCircle } from "react-icons/fi";
+import Pica from "pica";
 
-//internal import
+// Internal imports
 import useAsync from "@/hooks/useAsync";
 import SettingServices from "@/services/SettingServices";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import Container from "@/components/image-uploader/Container";
 
-// cloudinary?.config({
-//   cloud_name: import.meta.env.VITE_APP_CLOUD_NAME,
-//   api_key: import.meta.env.VITE_APP_CLOUDINARY_API_KEY,
-//   api_secret: import.meta.env.VITE_APP_CLOUDINARY_API_SECRET,
-// });
-
-const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
+const Uploader = ({
+  setImageUrl,
+  imageUrl,
+  product,
+  folder,
+  targetWidth = 800, // Set default fixed width
+  targetHeight = 800, // Set default fixed height
+}) => {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setError] = useState("");
+  const pica = Pica(); // Initialize Pica instance
 
   const { data: globalSetting } = useAsync(SettingServices.getGlobalSetting);
-
-  // console.log("data", data);
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
     accept: {
       "image/*": [".jpeg", ".jpg", ".png", ".webp"],
     },
     multiple: product ? true : false,
-    maxSize: 500000000,
+    maxSize: 5242880, // 5 MB in bytes
     maxFiles: globalSetting?.number_of_image_per_product || 2,
-    onDrop: (acceptedFiles) => {
-      setFiles(
+    onDrop: async (acceptedFiles) => {
+      const resizedFiles = await Promise.all(
         acceptedFiles.map((file) =>
+          resizeImageToFixedDimensions(file, targetWidth, targetHeight)
+        )
+      );
+      setFiles(
+        resizedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
@@ -44,6 +50,31 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
       );
     },
   });
+
+  const resizeImageToFixedDimensions = async (file, width, height) => {
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+
+    await img.decode();
+
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+
+    return new Promise((resolve) => {
+      pica
+        .resize(img, canvas, {
+          unsharpAmount: 80,
+          unsharpRadius: 0.6,
+          unsharpThreshold: 2,
+        })
+        .then((result) => pica.toBlob(result, file.type, 0.9))
+        .then((blob) => {
+          const resizedFile = new File([blob], file.name, { type: file.type });
+          resolve(resizedFile);
+        });
+    });
+  };
 
   useEffect(() => {
     if (fileRejections) {
@@ -80,14 +111,6 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
         setLoading(true);
         setError("Uploading....");
 
-        // if (product) {
-        //   const result = imageUrl?.find(
-        //     (img) => img === `${import.meta.env.VITE_APP_CLOUDINARY_URL}`
-        //   );
-
-        //   if (result) return setLoading(false);
-        // }
-
         const name = file.name.replaceAll(/\s/g, "");
         const public_id = name?.substring(0, name.lastIndexOf("."));
 
@@ -95,14 +118,14 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
         formData.append("file", file);
         formData.append(
           "upload_preset",
-          import.meta.env.VITE_APP_CLOUDINARY_UPLOAD_PRESET,
+          import.meta.env.VITE_APP_CLOUDINARY_UPLOAD_PRESET
         );
         formData.append("cloud_name", import.meta.env.VITE_APP_CLOUD_NAME);
         formData.append("folder", folder);
         formData.append("public_id", public_id);
 
         axios({
-          url: `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_APP_CLOUD_NAME}/image/upload`,
+          url: import.meta.env.VITE_APP_CLOUDINARY_URL,
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -125,7 +148,6 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
           });
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files]);
 
   const thumbs = files.map((file) => (
@@ -142,7 +164,6 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
 
   useEffect(
     () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
       files.forEach((file) => URL.revokeObjectURL(file.preview));
     },
     [files]
@@ -150,16 +171,7 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
 
   const handleRemoveImage = async (img) => {
     try {
-      const url = img.substring(img.length - 25);
-      // const url = img.split("/").pop().split(".")[0];
-      const public_id = `${folder}/${url}`;
-
-      const res = await cloudinary.v2.uploader.destroy(public_id);
-
       setLoading(false);
-      notifyError(
-        res.result === "ok" ? "Image delete successfully!" : res.result
-      );
       notifyError("Image delete successfully!");
       if (product) {
         const result = imageUrl?.filter((i) => i !== img);
@@ -200,7 +212,6 @@ const Uploader = ({ setImageUrl, imageUrl, product, folder }) => {
           </DndProvider>
         ) : !product && imageUrl ? (
           <div className="relative">
-            {" "}
             <img
               className="inline-flex border rounded-md border-gray-100 dark:border-gray-600 w-24 max-h-24 p-2"
               src={imageUrl}

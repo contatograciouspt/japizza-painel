@@ -18,6 +18,7 @@ import useToggleDrawer from "@/hooks/useToggleDrawer";
 import AttributeServices from "@/services/AttributeServices";
 import CurrencyServices from "@/services/CurrencyServices";
 import { notifyError, notifySuccess } from "@/utils/toast";
+import useDisableForDemo from "@/hooks/useDisableForDemo";
 
 const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
   const { isModalOpen, closeModal, setIsUpdate } = useContext(SidebarContext);
@@ -26,8 +27,12 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { handleDisableForDemo } = useDisableForDemo();
+
   const handleDelete = async () => {
-    // return notifyError("This feature is disabled for demo!");
+    // if (handleDisableForDemo()) {
+    //   return; // Exit the function if the feature is disabled
+    // }
     try {
       setIsSubmitting(true);
       if (location.pathname === "/products") {

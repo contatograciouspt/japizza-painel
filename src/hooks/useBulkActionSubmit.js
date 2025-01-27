@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 
 //internal import
+import useDisableForDemo from "./useDisableForDemo";
 import { SidebarContext } from "@/context/SidebarContext";
 import AttributeServices from "@/services/AttributeServices";
 import CategoryServices from "@/services/CategoryServices";
@@ -27,6 +28,7 @@ const useBulkActionSubmit = (ids, lang = "en", childId) => {
   const { isBulkDrawerOpen, closeBulkDrawer, setIsUpdate } =
     useContext(SidebarContext);
 
+  const { handleDisableForDemo } = useDisableForDemo();
   // console.log(
   //   'defaultCategory',
   //   defaultCategory,
@@ -44,8 +46,9 @@ const useBulkActionSubmit = (ids, lang = "en", childId) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    // console.log('data', data);
-    // return notifyError("This feature is disabled for demo!");
+    // if (handleDisableForDemo()) {
+    //   return; // Exit the function if the feature is disabled
+    // }
     try {
       // product data
       const productData = {

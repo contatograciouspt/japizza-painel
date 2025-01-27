@@ -360,6 +360,8 @@ const AboutUs = ({
                 <Uploader
                   imageUrl={aboutTopContentRightImage}
                   setImageUrl={setAboutTopContentRightImage}
+                  targetWidth={1050}
+                  targetHeight={805}
                 />
               </div>
             </div>
@@ -443,6 +445,8 @@ const AboutUs = ({
                   <Uploader
                     imageUrl={aboutMiddleContentImage}
                     setImageUrl={setAboutMiddleContentImage}
+                    targetWidth={1420}
+                    targetHeight={425}
                   />
                 </div>
               </div>
@@ -535,6 +539,8 @@ const AboutUs = ({
                         <Uploader
                           imageUrl={ourFounderOneImage}
                           setImageUrl={setOurFounderOneImage}
+                          targetWidth={600}
+                          targetHeight={600}
                         />
                       </div>
                     </div>
@@ -584,6 +590,8 @@ const AboutUs = ({
                         <Uploader
                           imageUrl={ourFounderTwoImage}
                           setImageUrl={setOurFounderTwoImage}
+                          targetWidth={600}
+                          targetHeight={600}
                         />
                       </div>
                     </div>
@@ -633,6 +641,8 @@ const AboutUs = ({
                         <Uploader
                           imageUrl={ourFounderThreeImage}
                           setImageUrl={setOurFounderThreeImage}
+                          targetWidth={600}
+                          targetHeight={600}
                         />
                       </div>
                     </div>
@@ -684,6 +694,8 @@ const AboutUs = ({
                         <Uploader
                           imageUrl={ourFounderFourImage}
                           setImageUrl={setOurFounderFourImage}
+                          targetWidth={600}
+                          targetHeight={600}
                         />
                       </div>
                     </div>
@@ -735,6 +747,8 @@ const AboutUs = ({
                         <Uploader
                           imageUrl={ourFounderFiveImage}
                           setImageUrl={setOurFounderFiveImage}
+                          targetWidth={600}
+                          targetHeight={600}
                         />
                       </div>
                     </div>
@@ -785,6 +799,8 @@ const AboutUs = ({
                         <Uploader
                           imageUrl={ourFounderSixImage}
                           setImageUrl={setOurFounderSixImage}
+                          targetWidth={600}
+                          targetHeight={600}
                         />
                       </div>
                     </div>

@@ -89,6 +89,11 @@ const OrderServices = {
   getBestSellerProductChart: async () => {
     return requests.get("/orders/best-seller/chart");
   },
+
+  //for sending email invoice to customer
+  sendEmailInvoiceToCustomer: async (body) => {
+    return requests.post("/order/customer/invoice", body);
+  },
 };
 
 export default OrderServices;

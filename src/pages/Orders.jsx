@@ -70,6 +70,8 @@ const Orders = () => {
     })
   );
 
+  console.log("data", data);
+
   const { currency, getNumber, getNumberTwo } = useUtilsFunction();
 
   const { dataTable, serviceData } = useFilter(data?.orders);
@@ -136,7 +138,7 @@ const Orders = () => {
     <>
       <PageTitle>{t("Orders")}</PageTitle>
 
-      <AnimatedContent>
+      {/* <AnimatedContent>
         <Card className="min-w-0 shadow-xs overflow-hidden bg-white dark:bg-gray-800 mb-5">
           <CardBody>
             <form onSubmit={handleSubmitForAll}>
@@ -269,13 +271,13 @@ const Orders = () => {
             </form>
           </CardBody>
         </Card>
-      </AnimatedContent>
+      </AnimatedContent> */}
       
       {/* Nova tabela customizada para receber dados de orders via viva wallet */}
 
-      {/* <TabelaPedidosCustomizada /> */}
+      <TabelaPedidosCustomizada />
 
-      {data?.methodTotals?.length > 0 && (
+      {/* {data?.methodTotals?.length > 0 && (
         <Card className="min-w-0 shadow-xs overflow-hidden bg-white dark:bg-gray-800 rounded-t-lg rounded-0 mb-4">
           <CardBody>
             <div className="flex gap-1">
@@ -331,7 +333,7 @@ const Orders = () => {
         </TableContainer>
       ) : (
         <NotFound title="Sorry, There are no orders right now." />
-      )}
+      )} */}
     </>
   );
 };

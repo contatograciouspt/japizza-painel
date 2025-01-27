@@ -151,7 +151,7 @@ const Staff = () => {
                   {t("PublishedTbl")}
                 </TableCell>
 
-                <TableCell className="text-right">
+                <TableCell className="text-center">
                   {t("StaffActionsTbl")}
                 </TableCell>
               </tr>

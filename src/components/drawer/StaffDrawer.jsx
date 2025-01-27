@@ -2,9 +2,10 @@ import React from "react";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { Card, CardBody, Input } from "@windmill/react-ui";
 import { useTranslation } from "react-i18next";
+import { MultiSelect } from "react-multi-select-component";
 
 //internal import
-
+import useGetCData from "@/hooks/useGetCData";
 import Error from "@/components/form/others/Error";
 import Title from "@/components/form/others/Title";
 import InputArea from "@/components/form/input/InputArea";
@@ -15,16 +16,21 @@ import LabelArea from "@/components/form/selectOption/LabelArea";
 import Uploader from "@/components/image-uploader/Uploader";
 
 const StaffDrawer = ({ id }) => {
+  const { role } = useGetCData();
   const {
     register,
     handleSubmit,
     onSubmit,
     errors,
+    adminInfo,
     imageUrl,
     setImageUrl,
     isSubmitting,
     selectedDate,
+    routeAccessList,
     setSelectedDate,
+    accessedRoutes,
+    setAccessedRoutes,
     handleSelectLanguage,
   } = useStaffSubmit(id);
   const { t } = useTranslation();
@@ -60,6 +66,8 @@ const StaffDrawer = ({ id }) => {
                       imageUrl={imageUrl}
                       setImageUrl={setImageUrl}
                       folder="admin"
+                      targetWidth={238}
+                      targetHeight={238}
                     />
                   </div>
                 </div>
@@ -167,6 +175,19 @@ const StaffDrawer = ({ id }) => {
                     <Error errorName={errors.role} />
                   </div>
                 </div>
+                {role === "Admin" && (
+                  <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
+                    <LabelArea label="Select Routes to given Access" />
+                    <div className="col-span-8 sm:col-span-4">
+                      <MultiSelect
+                        options={routeAccessList}
+                        value={accessedRoutes}
+                        onChange={(v) => setAccessedRoutes(v)}
+                        labelledBy="Select Coupon"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               <DrawerButton id={id} title="Staff" isSubmitting={isSubmitting} />

@@ -14,7 +14,9 @@ const SelectRole = ({ setRole, register, name, label }) => {
         <option value="" defaultValue hidden>
           Staff role
         </option>
+        <option value="Super Admin">Super Admin</option>
         <option value="Admin">Admin</option>
+        <option value="Cashier">Cashier</option>
         <option value="CEO">CEO</option>
         <option value="Manager">Manager</option>
         <option value="Accountant">Accountant</option>

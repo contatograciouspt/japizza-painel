@@ -37,6 +37,7 @@ const StoreHome = () => {
     lang,
     errors,
     favicon,
+    coupons,
     setFavicon,
     metaImg,
     setMetaImg,
@@ -458,6 +459,7 @@ const StoreHome = () => {
                 <HomePage
                   errors={errors}
                   isSave={isSave}
+                  coupons={coupons}
                   isCoupon={isCoupon}
                   register={register}
                   headerLogo={headerLogo}
@@ -680,6 +682,7 @@ const StoreHome = () => {
                   errors={errors}
                   isSave={isSave}
                   register={register}
+                  coupons={coupons}
                   setOffersPageHeader={setOffersPageHeader}
                   offersPageHeader={offersPageHeader}
                   setOffersHeaderBg={setOffersHeaderBg}
