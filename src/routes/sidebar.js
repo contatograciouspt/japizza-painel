@@ -88,7 +88,7 @@ const sidebar = [
     routes: [
       {
         name: "ViewStore",
-        path: "http://localhost:3000",
+        path: "https://japizza-loja.vercel.app/",
         outside: "store",
       },
 
