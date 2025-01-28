@@ -3,60 +3,66 @@ import { FaUserAlt } from "react-icons/fa";
 import NotFound from "../table/NotFound";
 import useVivaWallet from "@/hooks/vivawallet/useVivaWallet";
 import { BsFillHouseAddFill } from "react-icons/bs";
-import { FaShoppingCart, FaTrash } from "react-icons/fa" // Importe o ícone de lixeira
+import { FaShoppingCart, FaTrash } from "react-icons/fa";
 import useTabelaPedidosCustomizados from "@/hooks/tabelapedidos/useTabelaPedidosCustomizados";
 import { Table, TableCell, TableContainer, TableBody, TableHeader, Button, Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 export default function TabelaPedidosCustomizada() {
-    const { allOrders, getAllOrders, removeOrderFromLocalStorage } = useVivaWallet(); // Adicionando a função de exclusão
+    const [isStatusModalOpen, setIsStatusModalOpen] = React.useState(false);
+    const [selectedStatusOrder, setSelectedStatusOrder] = React.useState(null);
+    const [newStatus, setNewStatus] = React.useState("");
+    const { getAllOrders, removeOrderFromLocalStorage, updateStatusOrderByID } = useVivaWallet();
     const {
-        isAddressModalOpen,
-        isClientModalOpen,
-        selectedAddress,
-        selectedClient,
-        formatDate,
-        formatEuro,
-        getStatusColor,
-        handleCloseAddressModal,
-        handleCloseClientModal,
-        handleOpenAddressModal,
-        handleOpenClientModal,
+        isOrderModalOpen,
+        selectedOrder,
         handleOpenOrderModal,
         handleCloseOrderModal,
-        selectedOrder,
-        isOrderModalOpen
+        formatDate,
+        formatEuro,
+        orders,
+        getStatusColor
     } = useTabelaPedidosCustomizados();
 
     React.useEffect(() => {
         getAllOrders();
     }, []);
 
-    // Função para lidar com a exclusão do pedido
     const handleRemoveOrder = (orderId) => {
-        removeOrderFromLocalStorage(orderId)
-    }
+        removeOrderFromLocalStorage(orderId);
+    };
 
+    const handleOpenStatusModal = (order) => {
+        setSelectedStatusOrder(order);
+        setNewStatus(order.status);
+        setIsStatusModalOpen(true);
+    };
+
+    const handleCloseStatusModal = () => {
+        setIsStatusModalOpen(false);
+    };
+
+    const handleUpdateStatus = async () => {
+        if (selectedStatusOrder && newStatus) {
+            await updateStatusOrderByID(selectedStatusOrder._id, newStatus);
+            handleCloseStatusModal();
+        }
+    };
 
     return (
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
             <div className="p-4">
-                {allOrders && allOrders.length > 0 ? (
+                {orders && orders.length > 0 ? (
                     <TableContainer className="mb-8">
                         <Table>
                             <TableHeader>
                                 <tr>
                                     <TableCell>Pedidos</TableCell>
-                                    <TableCell>Data</TableCell>
-                                    <TableCell>Loja</TableCell>
-                                    <TableCell>Valor</TableCell>
-                                    <TableCell>Cliente</TableCell>
-                                    <TableCell>Endereço</TableCell>
                                     <TableCell>Excluir</TableCell>
                                     <TableCell>Status</TableCell>
                                 </tr>
                             </TableHeader>
                             <TableBody>
-                                {allOrders.map((order) => (
+                                {orders.map((order) => (
                                     <tr key={order._id}>
                                         <TableCell>
                                             <Button
@@ -66,47 +72,22 @@ export default function TabelaPedidosCustomizada() {
                                                 size="small"
                                             />
                                         </TableCell>
-                                        <TableCell>{formatDate(order.createdAt)}</TableCell>
-                                        <TableCell>{order.dynamicDescriptor}</TableCell>
-                                        <TableCell>{formatEuro(order.amount)}</TableCell>
                                         <TableCell>
                                             <Button
-                                                icon={FaUserAlt}
-                                                aria-label="Client Details"
-                                                size="small"
-                                                onClick={() =>
-                                                    handleOpenClientModal({
-                                                        fullName: order.fullName,
-                                                        email: order.email,
-                                                        phone: order.phone,
-                                                    })
-                                                }
-                                            />
-                                        </TableCell>
-                                        <TableCell>
-                                            <Button
-                                                onClick={() => handleOpenAddressModal(order.customerTrns)}
-                                                icon={BsFillHouseAddFill} // ícone do endereço
-                                                aria-label="Address Details" // TableCell para exibir o endereço
-                                                size="small"
-                                            />
-                                        </TableCell>
-                                        <TableCell>
-                                            <Button
-                                                onClick={() => handleRemoveOrder(order._id)} // Chama a função de remoção com o ID do pedido
-                                                icon={FaTrash} // Usa o ícone de lixeira
+                                                onClick={() => handleRemoveOrder(order._id)}
+                                                icon={FaTrash}
                                                 aria-label="Delete Order"
                                                 size="small"
                                             />
                                         </TableCell>
                                         <TableCell>
-                                            <span
-                                                className={`text-xs font-medium mr-2 px-2.5 py-0.5 rounded ${getStatusColor(
-                                                    order.status
-                                                )}`}
+                                            <Button
+                                                onClick={() => handleOpenStatusModal(order)}
+                                                className={`border rounded px-2 py-1 text-sm ${getStatusColor(order.status)}`}
+                                                size="small"
                                             >
                                                 {order.status}
-                                            </span>
+                                            </Button>
                                         </TableCell>
                                     </tr>
                                 ))}
@@ -119,40 +100,61 @@ export default function TabelaPedidosCustomizada() {
                     </div>
                 )}
             </div>
-            <Modal isOpen={isAddressModalOpen} onClose={handleCloseAddressModal}>
-                <ModalHeader>Detalhes do Endereço</ModalHeader>
+            <Modal isOpen={isStatusModalOpen} onClose={handleCloseStatusModal}>
+                <ModalHeader>Alterar Status do Pedido</ModalHeader>
                 <ModalBody>
-                    <p>{selectedAddress}</p>
+                    <div className="mb-4">
+                        <label htmlFor="orderStatus" className="block text-gray-700 text-sm font-bold mb-2">
+                            Novo Status:
+                        </label>
+                        <select
+                            id="orderStatus"
+                            value={newStatus}
+                            onChange={(e) => setNewStatus(e.target.value)}
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        >
+                            <option value="Pendente">Pendente</option>
+                            <option value="Pago">Pago</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
+                    </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Button onClick={handleCloseAddressModal}>Fechar</Button>
-                </ModalFooter>
-            </Modal>
-            <Modal isOpen={isClientModalOpen} onClose={handleCloseClientModal}>
-                <ModalHeader>Detalhes do Cliente</ModalHeader>
-                <ModalBody>
-                    {selectedClient && (
-                        <>
-                            <p><strong>Nome:</strong> {selectedClient.fullName}</p>
-                            <p><strong>Email:</strong> {selectedClient.email}</p>
-                            <p><strong>Telefone:</strong> {selectedClient.phone}</p>
-                        </>
-                    )}
-                </ModalBody>
-                <ModalFooter>
-                    <Button onClick={handleCloseClientModal}>Fechar</Button>
+                    <Button onClick={handleUpdateStatus} color="green">
+                        Confirmar
+                    </Button>
+                    <Button onClick={handleCloseStatusModal} >
+                        Cancelar
+                    </Button>
                 </ModalFooter>
             </Modal>
             <Modal isOpen={isOrderModalOpen} onClose={handleCloseOrderModal}>
                 <ModalHeader>Detalhes do Pedido</ModalHeader>
                 <ModalBody>
                     {selectedOrder && (
-                        <>
-                            <p><strong>N° do Pedido:</strong> {selectedOrder.invoice}</p>
-                            <p><strong>Produtos:</strong> {selectedOrder.merchantTrns.split("-").join(", ")}</p>
-                            <p><strong>Quantidade:</strong> {selectedOrder.merchantTrns.split("-").length}</p>
-                            <p><strong>Loja:</strong> {selectedOrder.dynamicDescriptor}</p>
-                        </>
+                        <div className="space-y-4">
+                            <div>
+                                <h3 className="text-lg font-semibold mb-2">Resumo do Pedido</h3>
+                                <hr className="mb-2" />
+                                <p><strong>Data do Pedido:</strong> {formatDate(selectedOrder.createdAt)}</p>
+                                <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.total)}</p>
+                                <br />
+                                <p>{selectedOrder.dynamicDescriptor}</p>
+                                <hr />
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-semibold mb-2">Localização</h3>
+                                <hr className="mb-2" />
+                                <p>{selectedOrder.user_info.address}</p>
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-semibold mb-2">Cliente</h3>
+                                <hr className="mb-2" />
+                                <p><strong>Nome:</strong> {selectedOrder.user_info.name}</p>
+                                <p><strong>Email:</strong> {selectedOrder.user_info.email}</p>
+                                <p><strong>Contato:</strong> {selectedOrder.user_info.contact}</p>
+                            </div>
+                        </div>
                     )}
                 </ModalBody>
                 <ModalFooter>

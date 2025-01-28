@@ -2,10 +2,30 @@ import axios from "axios";
 import React from "react";
 
 export default function useVivaWallet() {
-    const [allOrders, setAllOrders] = React.useState([]);
-    const urlDevelopment = import.meta.env.VITE_APP_URL_PAYMENT;
+    const getOrders = import.meta.env.VITE_APP_URL_ORDERS;
+    const updateOrder = import.meta.env.VITE_APP_URL_UPDATE_ORDER;
+    const deleteOrder = import.meta.env.VITE_APP_URL_DELETE_ORDER;
     const localStorageKey = "japizzaOrders";
     const lastUpdateKey = "japizzaLastUpdate";
+    const [allOrders, setAllOrders] = React.useState({
+        amount: 0,
+        _id: "",
+        cart: [],
+        createdAt: "",
+        dynamicDescriptor: "",
+        customerTrns: "",
+        discount: 0,
+        invoice: 0,
+        total: 0,
+        status: "",
+        orderCode: 0,
+        user_info: {
+            address: "",
+            contact: "",
+            email: "",
+            name: "",
+        }
+    });
 
     console.log("Pedidos :", allOrders);
 
@@ -49,7 +69,6 @@ export default function useVivaWallet() {
         }
     };
 
-
     const getAllOrders = async () => {
         try {
             const lastUpdate = getLastUpdateDate();
@@ -63,7 +82,7 @@ export default function useVivaWallet() {
             setAllOrders(localStorageOrders);
 
             if (shouldFetchAll) {
-                const response = await axios.get(urlDevelopment);
+                const response = await axios.get(getOrders);
 
                 if (response.data && Array.isArray(response.data)) {
                     setAllOrders(response.data);
@@ -71,7 +90,7 @@ export default function useVivaWallet() {
                     saveLastUpdateDate()
                 }
             } else {
-                const response = await axios.get(urlDevelopment);
+                const response = await axios.get(getOrders);
 
                 if (response.data && Array.isArray(response.data)) {
                     let newOrders = [];
@@ -96,9 +115,40 @@ export default function useVivaWallet() {
         }
     };
 
+    const deleteOrderByID = async (id) => {
+        try {
+            const response = await axios.delete(`${deleteOrder}/${id}`);
+            if (response.status === 200) {
+                console.log("Pedido deletado com sucesso");
+                removeOrderFromLocalStorage(id);
+            } else {
+                console.log("Erro ao deletar pedido");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const updateStatusOrderByID = async (id, newStatus) => {
+        try {
+            const response = await axios.put(`${updateOrder}/${id}`, { status: newStatus });
+            if (response.status === 200) {
+                console.log("Status do pedido atualizado com sucesso");
+                // Atualiza o status no estado local
+                setAllOrders(prevOrders => prevOrders.map(order => order._id === id ? { ...order, status: newStatus } : order));
+            } else {
+                console.log("Erro ao atualizar status do pedido");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return {
         allOrders,
         getAllOrders,
-        removeOrderFromLocalStorage, // Adicione esta linha para expor a função de remoção
+        removeOrderFromLocalStorage,
+        deleteOrderByID,
+        updateStatusOrderByID
     };
 }

@@ -1,12 +1,31 @@
-import { useState } from "react";
+import React from "react";
 
 export default function useTabelaPedidosCustomizados() {
-    const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
-    const [selectedAddress, setSelectedAddress] = useState("");
-    const [isClientModalOpen, setIsClientModalOpen] = useState(false);
-    const [selectedClient, setSelectedClient] = useState(null);
-    const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
-    const [selectedOrder, setSelectedOrder] = useState(null);
+    const [isAddressModalOpen, setIsAddressModalOpen] = React.useState(false);
+    const [selectedAddress, setSelectedAddress] = React.useState("");
+    const [isClientModalOpen, setIsClientModalOpen] = React.useState(false);
+    const [selectedClient, setSelectedClient] = React.useState(null);
+    const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
+    const [orders, setOrders] = React.useState([]);
+    const [selectedOrder, setSelectedOrder] = React.useState({
+        amount: 0,
+        _id: "",
+        cart: [],
+        createdAt: "",
+        dynamicDescriptor: "",
+        customerTrns: "",
+        discount: 0,
+        invoice: 0,
+        total: 0,
+        status: "",
+        orderCode: 0,
+        user_info: {
+            address: "",
+            contact: "",
+            email: "",
+            name: "",
+        }
+    });
 
     // Função para abrir o modal de endereço
     const handleOpenAddressModal = (address) => {
@@ -14,7 +33,7 @@ export default function useTabelaPedidosCustomizados() {
         setIsAddressModalOpen(true);
     };
 
-    //Funcao para fechar o modal de endereco
+    //Função para fechar o modal de endereço
     const handleCloseAddressModal = () => {
         setIsAddressModalOpen(false);
     };
@@ -25,7 +44,7 @@ export default function useTabelaPedidosCustomizados() {
         setIsClientModalOpen(true);
     };
 
-    //Funcao para fechar o modal de cliente
+    //Função para fechar o modal de cliente
     const handleCloseClientModal = () => {
         setIsClientModalOpen(false);
     };
@@ -36,11 +55,24 @@ export default function useTabelaPedidosCustomizados() {
         setIsOrderModalOpen(true);
     };
 
-    //Funcao para fechar o modal do pedido
+    //Função para fechar o modal do pedido
     const handleCloseOrderModal = () => {
         setIsOrderModalOpen(false);
     };
 
+    // Função para carregar pedidos do localStorage
+    const loadOrdersFromLocalStorage = () => {
+        const storedOrders = localStorage.getItem('japizzaOrders');
+        if (storedOrders) {
+            try {
+                return JSON.parse(storedOrders);
+            } catch (e) {
+                console.log("Error parsing stored orders:", e);
+                return [];
+            }
+        }
+        return [];
+    };
 
     // Função para determinar a classe CSS do status
     const getStatusColor = (status) => {
@@ -65,7 +97,7 @@ export default function useTabelaPedidosCustomizados() {
         return `${day}/${month}/${year}`;
     };
 
-    //Funcao para formatar o valor em EURO
+    //Função para formatar o valor em EURO
     const formatEuro = (amount) => {
         const formattedAmount = new Intl.NumberFormat("pt-PT", {
             style: "currency",
@@ -73,6 +105,12 @@ export default function useTabelaPedidosCustomizados() {
         }).format(amount / 100); // Divide por 100 para converter centavos para euros
         return formattedAmount;
     };
+
+    // Carregar pedidos do localStorage ao iniciar o componente
+    React.useEffect(() => {
+        const loadedOrders = loadOrdersFromLocalStorage();
+        setOrders(loadedOrders);
+    }, []);
 
     return {
         isAddressModalOpen,
@@ -89,6 +127,7 @@ export default function useTabelaPedidosCustomizados() {
         isOrderModalOpen,
         selectedOrder,
         handleOpenOrderModal,
-        handleCloseOrderModal
+        handleCloseOrderModal,
+        orders
     };
 }
