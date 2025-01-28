@@ -1,12 +1,12 @@
 import React from "react";
 
 export default function useTabelaPedidosCustomizados() {
-    const [isAddressModalOpen, setIsAddressModalOpen] = React.useState(false);
-    const [selectedAddress, setSelectedAddress] = React.useState("");
-    const [isClientModalOpen, setIsClientModalOpen] = React.useState(false);
-    const [selectedClient, setSelectedClient] = React.useState(null);
-    const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
-    const [orders, setOrders] = React.useState([]);
+    const [isAddressModalOpen, setIsAddressModalOpen] = React.useState(false)
+    const [selectedAddress, setSelectedAddress] = React.useState("")
+    const [isClientModalOpen, setIsClientModalOpen] = React.useState(false)
+    const [selectedClient, setSelectedClient] = React.useState(null)
+    const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false)
+    const [orders, setOrders] = React.useState([])
     const [selectedOrder, setSelectedOrder] = React.useState({
         amount: 0,
         _id: "",
