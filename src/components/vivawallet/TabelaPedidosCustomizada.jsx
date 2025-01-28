@@ -19,8 +19,7 @@ export default function TabelaPedidosCustomizada() {
         handleCloseOrderModal,
         formatDate,
         formatEuro,
-        orders,
-        getStatusColor
+        orders
     } = useTabelaPedidosCustomizados();
 
     React.useEffect(() => {
@@ -31,16 +30,19 @@ export default function TabelaPedidosCustomizada() {
         removeOrderFromLocalStorage(orderId);
     };
 
+    // Função para abrir o modal de status
     const handleOpenStatusModal = (order) => {
         setSelectedStatusOrder(order);
-        setNewStatus(order.status);
+        setNewStatus(order.status); // Define o status atual como valor inicial
         setIsStatusModalOpen(true);
     };
 
+    // Função para fechar o modal de status
     const handleCloseStatusModal = () => {
         setIsStatusModalOpen(false);
     };
 
+    // Função para lidar com a atualização do status do pedido
     const handleUpdateStatus = async () => {
         if (selectedStatusOrder && newStatus) {
             await updateStatusOrderByID(selectedStatusOrder._id, newStatus);
@@ -83,7 +85,7 @@ export default function TabelaPedidosCustomizada() {
                                         <TableCell>
                                             <Button
                                                 onClick={() => handleOpenStatusModal(order)}
-                                                className={`border rounded px-2 py-1 text-sm ${getStatusColor(order.status)}`}
+                                                className="border rounded px-2 py-1 text-sm"
                                                 size="small"
                                             >
                                                 {order.status}
@@ -133,20 +135,24 @@ export default function TabelaPedidosCustomizada() {
                 <ModalBody>
                     {selectedOrder && (
                         <div className="space-y-4">
+                            {/* Resumo do Pedido */}
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Resumo do Pedido</h3>
                                 <hr className="mb-2" />
                                 <p><strong>Data do Pedido:</strong> {formatDate(selectedOrder.createdAt)}</p>
                                 <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.total)}</p>
                                 <br />
-                                <p>{selectedOrder.dynamicDescriptor}</p>
+                                <p>{`${selectedOrder.dynamicDescriptor.length} ${selectedOrder.dynamicDescriptor}`}</p>
                                 <hr />
+                                {/* Outros detalhes do pedido */}
                             </div>
+                            {/* Detalhes da Localização */}
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Localização</h3>
                                 <hr className="mb-2" />
                                 <p>{selectedOrder.user_info.address}</p>
                             </div>
+                            {/* Detalhes do Cliente */}
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Cliente</h3>
                                 <hr className="mb-2" />
