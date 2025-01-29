@@ -9,25 +9,29 @@ export default function useVivaWallet() {
     const lastUpdateKey = "japizzaLastUpdate";
     const [allOrders, setAllOrders] = React.useState({
         amount: 0,
-        _id: "",
-        cart: [],
-        createdAt: "",
-        dynamicDescriptor: "",
-        customerTrns: "",
+        cart: [{
+            title: "",
+            quantity: 0,
+            price: 0,
+        }],
         discount: 0,
-        invoice: 0,
+        createdAt: "",
+        shippingCost: 0,
+        subTotal: 0,
         total: 0,
-        status: "",
-        orderCode: 0,
+        merchantTrns: "",
         user_info: {
             address: "",
+            city: "",
             contact: "",
+            country: "",
             email: "",
             name: "",
-        }
+            zipCode: "",
+        },
+        createdAt: "",
+        _id: "",
     });
-
-    console.log("Pedidos :", allOrders);
 
     // Função para salvar os pedidos no localStorage
     const saveOrdersToLocalStorage = (orders) => {
@@ -76,7 +80,7 @@ export default function useVivaWallet() {
             const timeSinceLastUpdate = lastUpdate ? now - lastUpdate : Infinity;
             const twentyFourHours = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-            let shouldFetchAll = timeSinceLastUpdate > twentyFourHours; // Verifica se deve buscar todos os pedidos
+            let shouldFetchAll = timeSinceLastUpdate > twentyFourHours;
             let localStorageOrders = loadOrdersFromLocalStorage();
 
             setAllOrders(localStorageOrders);
@@ -147,6 +151,7 @@ export default function useVivaWallet() {
     return {
         allOrders,
         getAllOrders,
+        setAllOrders,
         removeOrderFromLocalStorage,
         deleteOrderByID,
         updateStatusOrderByID

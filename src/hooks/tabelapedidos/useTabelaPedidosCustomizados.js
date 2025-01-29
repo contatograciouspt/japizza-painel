@@ -7,25 +7,7 @@ export default function useTabelaPedidosCustomizados() {
     const [selectedClient, setSelectedClient] = React.useState(null);
     const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
     const [orders, setOrders] = React.useState([]);
-    const [selectedOrder, setSelectedOrder] = React.useState({
-        amount: 0,
-        _id: "",
-        cart: [],
-        createdAt: "",
-        dynamicDescriptor: "",
-        customerTrns: "",
-        discount: 0,
-        invoice: 0,
-        total: 0,
-        status: "",
-        orderCode: 0,
-        user_info: {
-            address: "",
-            contact: "",
-            email: "",
-            name: "",
-        }
-    });
+    const [selectedOrder, setSelectedOrder] = React.useState(null);
 
     // Função para abrir o modal de endereço
     const handleOpenAddressModal = (address) => {
@@ -59,6 +41,7 @@ export default function useTabelaPedidosCustomizados() {
     const handleCloseOrderModal = () => {
         setIsOrderModalOpen(false);
     };
+
 
     // Função para carregar pedidos do localStorage
     const loadOrdersFromLocalStorage = () => {

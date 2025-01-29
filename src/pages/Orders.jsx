@@ -70,7 +70,7 @@ const Orders = () => {
     })
   );
 
-  console.log("data", data);
+  // console.log("data", data);
 
   const { currency, getNumber, getNumberTwo } = useUtilsFunction();
 
