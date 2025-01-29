@@ -218,7 +218,7 @@ export default function TabelaPedidosCustomizada() {
                                 <p><strong>Data do Pedido:</strong> {formatDate(selectedOrder.createdAt)}</p>
                                 <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.amount)}</p>
                                 <p><strong>Custo do Envio:</strong> {selectedOrder.cart[0].shippingCost.toFixed(2) || "0.00"} €</p>
-                                <p><strong>Pagamento na Entrega?:</strong> {selectedOrder.pagamentoNaentrega ? "Sim" : "Não"} </p>
+                                <p><strong>Pagamento na Entrega:</strong> {selectedOrder.pagamentoNaEntrega ? "Sim" : "Não"} </p>
                                 {selectedOrder.discount > 0 && (
                                     <p><strong>Desconto:</strong> {formatEuro(selectedOrder.discount)}</p>
                                 )}
@@ -258,7 +258,7 @@ export default function TabelaPedidosCustomizada() {
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Informações Adicionais</h3>
                                 <hr className="mb-2" />
-                                <p>{selectedOrder.additionalInformation || "Não informado"}</p>
+                                <p>{selectedOrder.cart[0].user_info.additionalInformation || "Não informado"}</p>
                             </div>
                         </div>
                     )}
