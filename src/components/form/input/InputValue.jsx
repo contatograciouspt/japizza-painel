@@ -19,11 +19,11 @@ const InputValue = ({
     required: required ? `${label} is required!` : false,
     max: {
       value: maxValue,
-      message: `Maximum value ${maxValue}!`,
+      message: `Valor máximo ${maxValue}!`,
     },
     min: {
       value: minValue,
-      message: `Minimum value ${minValue}!`,
+      message: `Valor mínimo ${minValue}!`,
     },
     pattern: {
       value: /^[0-9]*$/,

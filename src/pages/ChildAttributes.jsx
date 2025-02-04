@@ -48,6 +48,7 @@ const ChildAttributes = () => {
       type: "attribute",
       option: "Dropdown",
       option1: "Radio",
+      option2: "Checkbox",
     })
   );
 
@@ -80,7 +81,7 @@ const ChildAttributes = () => {
 
   return (
     <>
-      <PageTitle>Attributes Values</PageTitle>
+      <PageTitle>Valor dos Atributos</PageTitle>
 
       <DeleteModal
         ids={allId}
@@ -104,7 +105,7 @@ const ChildAttributes = () => {
           <ol className="flex items-center w-full overflow-hidden font-serif">
             <li className="text-sm pr-1 transition duration-200 ease-in cursor-pointer hover:text-emerald-500 font-semibold">
               <Link className="text-blue-700" to={`/attributes`}>
-                Attributes
+                Atributos
               </Link>
             </li>
 
@@ -128,7 +129,7 @@ const ChildAttributes = () => {
                 <span className="mr-3">
                   <FiPlus />
                 </span>
-                Add Value
+                Adicionar Valor
               </Button>
             </div>
 
@@ -139,7 +140,7 @@ const ChildAttributes = () => {
                 className="w-full rounded-md h-12"
               >
                 <FiEdit />
-                Bulk Action
+                Ação em Massa
               </Button>
             </div>
 
@@ -151,7 +152,7 @@ const ChildAttributes = () => {
               <span className="mr-3">
                 <FiTrash2 />
               </span>
-              Delete
+              Deletar
             </Button>
           </CardBody>
         </Card>
@@ -175,11 +176,11 @@ const ChildAttributes = () => {
                     isChecked={isCheckAll}
                   />
                 </TableCell>
-                <TableCell>Id</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Type</TableCell>
+                <TableCell>ID</TableCell>
+                <TableCell>Nome</TableCell>
+                <TableCell>Tipo</TableCell>
                 <TableCell className="text-center">Status</TableCell>
-                <TableCell className="text-right">Actions</TableCell>
+                <TableCell className="text-right">Ações</TableCell>
               </tr>
             </TableHeader>
 
@@ -202,7 +203,7 @@ const ChildAttributes = () => {
           </TableFooter>
         </TableContainer>
       ) : (
-        <NotFound title="Sorry, There are no attributes right now." />
+        <NotFound title="Desculpe não há atributos no momento." />
       )}
     </>
   );

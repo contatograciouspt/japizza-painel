@@ -56,7 +56,7 @@ const useAttributeSubmit = (id) => {
       setIsSubmitting(true);
       if (!id) {
         if (variants.length === 0) {
-          notifyError("Minimum one value is required for add attribute!");
+          notifyError("É necessário no mínimo um valor para adicionar atributo!");
           return;
         }
       }
@@ -155,8 +155,8 @@ const useAttributeSubmit = (id) => {
   const handleSelectLanguage = (lang) => {
     setLanguage(lang);
     if (Object.keys(resData).length > 0) {
-      setValue("title", resData.title[lang ? lang : "en"]);
-      setValue("name", resData.name[lang ? lang : "en"]);
+      setValue("title", resData.title[lang ? lang : "pt"]);
+      setValue("name", resData.name[lang ? lang : "pt"]);
       // console.log('change lang', lang);
     }
   };
@@ -194,8 +194,8 @@ const useAttributeSubmit = (id) => {
           const res = await AttributeServices.getAttributeById(id);
           if (res) {
             setResData(res);
-            setValue("title", res.title[language ? language : "en"]);
-            setValue("name", res.name[language ? language : "en"]);
+            setValue("title", res.title[language ? language : "pt"]);
+            setValue("name", res.name[language ? language : "pt"]);
             setValue("option", res.option);
           }
         } catch (err) {
@@ -213,7 +213,7 @@ const useAttributeSubmit = (id) => {
           });
           if (res) {
             // console.log('res child', res);
-            setValue("name", res.name[language ? language : "en"]);
+            setValue("name", res.name[language ? language : "pt"]);
             setPublished(res.status === "show" ? true : false);
           }
         } catch (err) {

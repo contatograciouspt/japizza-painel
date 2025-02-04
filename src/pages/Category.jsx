@@ -36,15 +36,9 @@ import AnimatedContent from "@/components/common/AnimatedContent";
 
 const Category = () => {
   const { toggleDrawer, lang } = useContext(SidebarContext);
-
   const { data, loading, error } = useAsync(CategoryServices.getAllCategory);
-  const { data: getAllCategories } = useAsync(
-    CategoryServices.getAllCategories
-  );
-
-  const { handleDeleteMany, allId, handleUpdateMany, serviceId } =
-    useToggleDrawer();
-
+  const { data: getAllCategories } = useAsync(CategoryServices.getAllCategories);
+  const { handleDeleteMany, allId, handleUpdateMany, serviceId } = useToggleDrawer();
   const { t } = useTranslation();
 
   const {
@@ -260,7 +254,7 @@ const Category = () => {
           </TableFooter>
         </TableContainer>
       ) : (
-        <NotFound title="Sorry, There are no categories right now." />
+        <NotFound title="Desculpe não existem categorias no momento." />
       )}
     </>
   );

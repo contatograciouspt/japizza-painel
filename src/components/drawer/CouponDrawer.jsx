@@ -148,12 +148,13 @@ const CouponDrawer = ({ id }) => {
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
               <LabelArea label={t("MinimumAmount")} />
               <div className="col-span-8 sm:col-span-4">
+                {/* Input de valor mínimo para cupon */}
                 <InputValue
                   product
                   required={true}
                   register={register}
                   maxValue={200000}
-                  minValue={100}
+                  minValue={1}
                   label="Minimum Amount"
                   name="minimumAmount"
                   type="number"

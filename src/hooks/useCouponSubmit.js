@@ -93,7 +93,7 @@ const useCouponSubmit = (id) => {
   const handleSelectLanguage = (lang) => {
     setLanguage(lang);
     if (Object.keys(resData).length > 0) {
-      setValue("title", resData.title[lang ? lang : "en"]);
+      setValue("title", resData.title[lang ? lang : "pt"]);
     }
   };
 
@@ -124,7 +124,7 @@ const useCouponSubmit = (id) => {
           if (res) {
             // console.log('res coupon', res);
             setResData(res);
-            setValue("title", res.title[language ? language : "en"]);
+            setValue("title", res.title[language ? language : "pt"]);
             setValue("productType", res.productType);
             setValue("couponCode", res.couponCode);
 

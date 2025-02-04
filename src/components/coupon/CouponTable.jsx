@@ -36,7 +36,7 @@ const CouponTable = ({ isCheck, coupons, setIsCheck }) => {
 
   useEffect(() => {
     const result = coupons?.map((el) => {
-      const newDate = new Date(el?.updatedAt).toLocaleString("en-US", {
+      const newDate = new Date(el?.updatedAt).toLocaleString("pt-PT", {
         timeZone: globalSetting?.default_time_zone,
       });
       const newObj = {

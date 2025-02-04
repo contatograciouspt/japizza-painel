@@ -82,17 +82,17 @@ const useProductSubmit = (id) => {
     // console.log('data is data',data)
     try {
       setIsSubmitting(true);
-      if (!imageUrl) return notifyError("Image is required!");
+      if (!imageUrl) return notifyError("A imagem é obrigatória!");
 
       if (data.originalPrice < data.price) {
         setIsSubmitting(false);
         return notifyError(
-          "Sale Price must be less then or equal of product price!"
+          "O preço de venda deve ser inferior ou igual ao preço do produto!"
         );
       }
       if (!defaultCategory[0]) {
         setIsSubmitting(false);
-        return notifyError("Default Category is required!");
+        return notifyError("A categoria padrão é obrigatória!");
       }
 
       const updatedVariants = variants.map((v, i) => {
@@ -184,8 +184,8 @@ const useProductSubmit = (id) => {
         // console.log("res is ", res);
         if (isCombination) {
           setUpdatedId(res._id);
-          setValue("title", res.title[language ? language : "en"]);
-          setValue("description", res.description[language ? language : "en"]);
+          setValue("title", res.title[language ? language : "pt"]);
+          setValue("description", res.description[language ? language : "pt"]);
           setValue("slug", res.slug);
           setValue("show", res.show);
           setValue("barcode", res.barcode);
@@ -218,10 +218,10 @@ const useProductSubmit = (id) => {
           setIsBasicComplete(true);
           setIsSubmitting(false);
           handleProductTap("Combination", true);
-          notifySuccess("Product Added Successfully!");
+          notifySuccess("Produto adicionado com sucesso!");
         } else {
           setIsUpdate(true);
-          notifySuccess("Product Added Successfully!");
+          notifySuccess("Produto adicionado com sucesso!");
         }
 
         if (
@@ -307,10 +307,10 @@ const useProductSubmit = (id) => {
             setResData(res);
             setSlug(res.slug);
             setUpdatedId(res._id);
-            setValue("title", res.title[language ? language : "en"]);
+            setValue("title", res.title[language ? language : "pt"]);
             setValue(
               "description",
-              res.description[language ? language : "en"]
+              res.description[language ? language : "pt"]
             );
             setValue("slug", res.slug);
             setValue("show", res.show);
@@ -408,7 +408,7 @@ const useProductSubmit = (id) => {
   //generate all combination combination
   const handleGenerateCombination = () => {
     if (Object.keys(values).length === 0) {
-      return notifyError("Please select a variant first!");
+      return notifyError("Selecione primeiro uma variante!");
     }
 
     const result = variants.filter(
@@ -481,9 +481,9 @@ const useProductSubmit = (id) => {
   const handleRemoveVariant = (vari, ext) => {
     // console.log("handleRemoveVariant", vari, ext);
     swal({
-      title: `Are you sure to delete this ${ext ? "Extra" : "combination"}!`,
-      text: `(If Okay, It will be delete this ${
-        ext ? "Extra" : "combination"
+      title: `Tem a certeza de que pretende excluir isto? ${ext ? "Extra" : "Combinação"}!`,
+      text: `(Se estiver tudo bem, será eliminado ${
+        ext ? "Extra" : "Combinação"
       })`,
       icon: "warning",
       buttons: true,
@@ -520,8 +520,8 @@ const useProductSubmit = (id) => {
   const handleIsCombination = () => {
     if ((isCombination && variantTitle.length) > 0) {
       swal({
-        title: "Are you sure to remove combination from this product!",
-        text: "(It will be delete all your combination and extras)",
+        title: "Tem a certeza de que pretende remover a combinação deste produto?",
+        text: "(Irá apagar todas as suas combinações e extras)",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -565,12 +565,12 @@ const useProductSubmit = (id) => {
     if (value) {
       if (!value)
         return notifyError(
-          `${"Please save product before adding combinations!"}`
+          `${"Por favor, guarde o produto antes de adicionar combinações!"}`
         );
     } else {
       if (!isBasicComplete)
         return notifyError(
-          `${"Please save product before adding combinations!"}`
+          `${"Por favor, guarde o produto antes de adicionar combinações!"}`
         );
     }
     setTapValue(e);
@@ -589,7 +589,7 @@ const useProductSubmit = (id) => {
     // );
     if (name === "originalPrice" && Number(value) < Number(variant.price)) {
       // variants[id][name] = Number(variant.originalPrice);
-      notifyError("Price must be more then or equal of originalPrice!");
+      notifyError("O preço deve ser superior ou igual ao preço original!");
       setValue("originalPrice", variant.originalPrice);
       setIsBulkUpdate(true);
       const timeOutId = setTimeout(() => setIsBulkUpdate(false), 100);
@@ -597,7 +597,7 @@ const useProductSubmit = (id) => {
     }
     if (name === "price" && Number(variant.originalPrice) < Number(value)) {
       // variants[id][name] = Number(variant.originalPrice);
-      notifyError("Sale Price must be less then or equal of product price!");
+      notifyError("O preço de venda deve ser inferior ou igual ao preço do produto!");
       setValue("price", variant.originalPrice);
       setIsBulkUpdate(true);
       const timeOutId = setTimeout(() => setIsBulkUpdate(false), 100);
@@ -637,8 +637,8 @@ const useProductSubmit = (id) => {
   const handleSelectLanguage = (lang) => {
     setLanguage(lang);
     if (Object.keys(resData).length > 0) {
-      setValue("title", resData.title[lang ? lang : "en"]);
-      setValue("description", resData.description[lang ? lang : "en"]);
+      setValue("title", resData.title[lang ? lang : "pt"]);
+      setValue("description", resData.description[lang ? lang : "pt"]);
     }
   };
 

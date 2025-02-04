@@ -56,7 +56,7 @@ const useCategorySubmit = (id, data) => {
           [language]: description || "",
         }),
         parentId: checked ? checked : undefined,
-        parentName: selectCategoryName ? selectCategoryName : "Home",
+        parentName: selectCategoryName ? selectCategoryName : "Principal",
         // parentName: selectCategoryName ? selectCategoryName : 'Home',
 
         icon: imageUrl,
@@ -92,8 +92,8 @@ const useCategorySubmit = (id, data) => {
   const handleSelectLanguage = (lang) => {
     setLanguage(lang);
     if (Object.keys(resData).length > 0) {
-      setValue("name", resData.name[lang ? lang : "en"]);
-      setValue("description", resData.description[lang ? lang : "en"]);
+      setValue("name", resData.name[lang ? lang : "pt"]);
+      setValue("description", resData.description[lang ? lang : "pt"]);
     }
   };
 
@@ -111,7 +111,7 @@ const useCategorySubmit = (id, data) => {
       clearErrors("parentId");
       clearErrors("parentName");
       clearErrors("description");
-      setSelectCategoryName("Home");
+      setSelectCategoryName("Principal");
       setLanguage(lang);
       setValue("language", language);
 
@@ -128,10 +128,10 @@ const useCategorySubmit = (id, data) => {
 
           if (res) {
             setResData(res);
-            setValue("name", res.name[language ? language : "en"]);
+            setValue("name", res.name[language ? language : "pt"]);
             setValue(
               "description",
-              res.description[language ? language : "en"]
+              res.description[language ? language : "pt"]
             );
             setValue("language", language);
             setValue("parentId", res.parentId);

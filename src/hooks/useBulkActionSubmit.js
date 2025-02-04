@@ -13,7 +13,7 @@ import LanguageServices from "@/services/LanguageServices";
 import ProductServices from "@/services/ProductServices";
 import { notifyError, notifySuccess } from "@/utils/toast";
 
-const useBulkActionSubmit = (ids, lang = "en", childId) => {
+const useBulkActionSubmit = (ids, lang = "pt", childId) => {
   const [children, setChildren] = useState("");
   const [tag, setTag] = useState([]);
   const location = useLocation();

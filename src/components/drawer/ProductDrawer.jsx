@@ -467,9 +467,10 @@ const ProductDrawer = ({ id }) => {
                         <TableCell>{t("Combination")}</TableCell>
                         <TableCell>{t("Sku")}</TableCell>
                         <TableCell>{t("Barcode")}</TableCell>
-                        <TableCell>{t("Price")}</TableCell>
-                        {/* <TableCell>{t("SalePrice")}</TableCell> */}
+                        {/* <TableCell>{t("Price")}</TableCell> */}
                         <TableCell>Preço Sem Promo</TableCell>
+                        {/* <TableCell>{t("SalePrice")}</TableCell> */}
+                        <TableCell>Preço Cobrado</TableCell>
                         <TableCell>{t("QuantityTbl")}</TableCell>
                         <TableCell className="text-right">
                           {t("Action")}

@@ -79,7 +79,7 @@ const Coupons = () => {
       <DeleteModal
         ids={allId}
         setIsCheck={setIsCheck}
-        title="Selected Coupon"
+        title="O Cupom selecionado"
       />
       <BulkActionDrawer ids={allId} title="Coupons" />
 

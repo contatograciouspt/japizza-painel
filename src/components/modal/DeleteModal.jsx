@@ -92,7 +92,7 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
           setIsSubmitting(false);
         } else {
           if (id === undefined || !id) {
-            notifyError("Please select a category first!");
+            notifyError("Por favor selecione a categoria primeiro!");
             setIsSubmitting(false);
             return closeModal();
           }
@@ -110,7 +110,7 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
       ) {
         // console.log('delete modal ')
         if (id === undefined || !id) {
-          notifyError("Please select a category first!");
+          notifyError("Por favor selecione a categoria primeiro!");
           setIsSubmitting(false);
           return closeModal();
         }

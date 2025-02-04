@@ -91,7 +91,7 @@ const AttributeDrawer = ({ id }) => {
                 <Select
                   name="option"
                   {...register(`option`, {
-                    required: `Option is required!`,
+                    required: `A opção é obrigatorio`,
                   })}
                 >
                   <option value="" defaultValue hidden>
@@ -99,7 +99,7 @@ const AttributeDrawer = ({ id }) => {
                   </option>
                   <option value="Dropdown">{t("Dropdown")}</option>
                   <option value="Radio">{t("Radio")}</option>
-                  {/* <option value="Checkbox">Checkbox</option> */}
+                  <option value="Checkbox">{t("Checkbox")}</option>
                 </Select>
                 <Error errorName={errors.option} />
               </div>
