@@ -59,10 +59,10 @@ export default defineConfig({
         scope: ".",
         start_url: ".",
         id: ".",
-        short_name: "Kachabazar - E-Commerce Website",
-        name: "Kachabazar | React eCommerce Admin Dashboard",
+        short_name: "jáPizza - A Melhor Pizza em Mexilhoeira",
+        name: "jáPizza - A Melhor Pizza em Mexilhoeira",
         description:
-          "Kachabazar : React Grocery & Organic Food Store e-commerce Admin Dashboard",
+          "jáPizza : A Melhor Pizza em Mexilhoeira",
         icons: [
           {
             src: "favicon.ico",

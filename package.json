@@ -1,7 +1,7 @@
 {
-  "name": "kachabazar-admin",
+  "name": "jáPizza-admin",
   "version": "0.1.0",
-  "description": "this is Kachabazar-admin built with react.js and tailwindcss",
+  "description": "this is jáPizza-admin built with react.js and tailwindcss",
   "private": true,
   "type": "module",
   "dependencies": {
