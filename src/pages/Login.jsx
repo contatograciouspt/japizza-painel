@@ -103,14 +103,14 @@ const Login = () => {
                     {t("ForgotPassword")}
                   </Link>
                 </p>
-                <p className="mt-1">
+                {/* <p className="mt-1">
                   <Link
                     className="text-sm font-medium text-emerald-500 dark:text-emerald-400 hover:underline"
                     to="/signup"
                   >
                     {t("CreateAccountTitle")}
                   </Link>
-                </p>
+                </p> */}
               </div>
             </main>
           </div>
