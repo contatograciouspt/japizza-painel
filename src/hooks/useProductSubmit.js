@@ -15,8 +15,7 @@ import useUtilsFunction from "./useUtilsFunction";
 
 const useProductSubmit = (id) => {
   const location = useLocation();
-  const { isDrawerOpen, closeDrawer, setIsUpdate, lang } =
-    useContext(SidebarContext);
+  const { isDrawerOpen, closeDrawer, setIsUpdate, lang } = useContext(SidebarContext);
 
   const { data: attribue } = useAsync(AttributeServices.getShowingAttributes);
 
@@ -364,13 +363,15 @@ const useProductSubmit = (id) => {
   ]);
 
   //for filter related attribute and extras for every product which need to update
+  // useEffect que carrega os tipos de atributos e extras com base no idioma
   useEffect(() => {
     const result = attribue
-      ?.filter((att) => att.option !== "Checkbox")
+      ?.filter((att) => att.option === "Checkbox" || att.option === "Radio" || att.option === "Dropdown") 
       .map((v) => {
         return {
-          label: showingTranslateValue(v?.title, lang),
-          value: showingTranslateValue(v?.title, lang),
+          ...v,
+          label: v.title.pt,
+          value: v.title.pt,
         };
       });
 
@@ -405,6 +406,7 @@ const useProductSubmit = (id) => {
     setAttributes(attributeArray);
   };
 
+
   //generate all combination combination
   const handleGenerateCombination = () => {
     if (Object.keys(values).length === 0) {
@@ -424,8 +426,6 @@ const useProductSubmit = (id) => {
         ...rest
       }) => JSON.stringify({ ...rest }) !== "{}"
     );
-
-    // console.log("result", result);
 
     setVariants(result);
 

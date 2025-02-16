@@ -91,6 +91,23 @@ const ProductDrawer = ({ id }) => {
 
   const { currency, showingTranslateValue } = useUtilsFunction();
 
+  const atributos = {
+    _id: "1",
+    title: { pt: "Tamanho" },
+    name: { pt: "Tamanho" },
+    variants: [
+      {
+        _id: "1",
+        name: "XL",
+      },
+      {
+        _id: "2",
+        name: "XXL",
+      },
+    ],
+    option: "Radio"
+  };
+
   return (
     <>
       <Modal
@@ -258,9 +275,9 @@ const ProductDrawer = ({ id }) => {
                     singleSelect={true}
                     ref={resetRefTwo}
                     hidePlaceholder={true}
-                    onKeyPressFn={function noRefCheck() {}}
-                    onRemove={function noRefCheck() {}}
-                    onSearch={function noRefCheck() {}}
+                    onKeyPressFn={function noRefCheck() { }}
+                    onRemove={function noRefCheck() { }}
+                    onSearch={function noRefCheck() { }}
                     onSelect={(v) => setDefaultCategory(v)}
                     selectedValues={defaultCategory}
                     options={selectedCategory}
@@ -391,6 +408,7 @@ const ProductDrawer = ({ id }) => {
               <div className="p-6">
                 {/* <h4 className="mb-4 font-semibold text-lg">Variants</h4> */}
                 <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-3 md:gap-3 xl:gap-3 lg:gap-2 mb-3">
+                  {/*  select de atributos */}
                   <MultiSelect
                     options={attTitle}
                     value={attributes}

@@ -75,7 +75,7 @@ const AttributeListTable = ({
                           (v) => v._id === variant[att?._id]
                         )?.name;
                         if (attributeName === undefined) {
-                          return attributeName?.en;
+                          return attributeName?.pt;
                         } else {
                           return showingTranslateValue(attributeName);
                         }

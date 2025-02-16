@@ -92,11 +92,11 @@ const BulkActionDrawer = ({
     const checkId = isCheck?.find((data) => data === key);
 
     if (isCheck?.length === data[0]?.children?.length) {
-      return notifyError("This can't be select as a parent category!");
+      return notifyError("Isso não pode ser selecionado como categoria pai!");
     } else if (checkId !== undefined) {
-      return notifyError("This can't be select as a parent category!");
+      return notifyError("Isso não pode ser selecionado como categoria pai!");
     } else if (key === childId) {
-      return notifyError("This can't be select as a parent category!");
+      return notifyError("Isso não pode ser selecionado como categoria pai!");
     } else {
       if (key === undefined) return;
       setChecked(key);
