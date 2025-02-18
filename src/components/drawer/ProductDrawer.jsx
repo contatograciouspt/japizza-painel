@@ -91,7 +91,7 @@ const ProductDrawer = ({ id }) => {
 
   const { currency, showingTranslateValue } = useUtilsFunction();
 
-  const atributos = {
+  const atributosTeste = {
     _id: "1",
     title: { pt: "Tamanho" },
     name: { pt: "Tamanho" },

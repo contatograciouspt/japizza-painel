@@ -52,7 +52,7 @@ const ProductTable = ({ products, isCheck, setIsCheck }) => {
             <TableCell>
               <CheckBox
                 type="checkbox"
-                name={product?.title?.en}
+                name={product?.title?.pt}
                 id={product._id}
                 handleClick={handleClick}
                 isChecked={isCheck?.includes(product._id)}

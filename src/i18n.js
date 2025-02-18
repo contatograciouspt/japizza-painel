@@ -1,7 +1,7 @@
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
-// import en from "@/utils/translation/en.json";
+import en from "@/utils/translation/en.json";
 import pt from "@/utils/translation/pt.json";
 
 i18n
@@ -9,12 +9,12 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      // en: { translation: en },
+      en: { translation: en },
       pt: { translation: pt },
     },
     debug: true,
     fallbackLng: "pt",
-    // lag: "en",
+    lag: "pt",
     nonExplicitSupportedLngs: true,
     interpolation: {
       escapeValue: false,

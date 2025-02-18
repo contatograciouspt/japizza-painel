@@ -29,7 +29,7 @@ const useProductSubmit = (id) => {
   const [values, setValues] = useState({});
   let [variants, setVariants] = useState([]);
   const [variant, setVariant] = useState([]);
-  const [totalStock, setTotalStock] = useState(0);
+  const [totalStock, setTotalStock] = useState(5000000);
   const [quantity, setQuantity] = useState(0);
 
   const [originalPrice, setOriginalPrice] = useState(0);
@@ -234,6 +234,7 @@ const useProductSubmit = (id) => {
     } catch (err) {
       // console.log("err", err);
       setIsSubmitting(false);
+      console.log("Erro ao adicionar produto:", err);
       notifyError(err?.response?.data?.message || err?.message);
       closeDrawer();
     }
@@ -587,22 +588,25 @@ const useProductSubmit = (id) => {
     //   "variant",
     //   variant
     // );
-    if (name === "originalPrice" && Number(value) < Number(variant.price)) {
-      // variants[id][name] = Number(variant.originalPrice);
-      notifyError("O preço deve ser superior ou igual ao preço original!");
-      setValue("originalPrice", variant.originalPrice);
-      setIsBulkUpdate(true);
-      const timeOutId = setTimeout(() => setIsBulkUpdate(false), 100);
-      return () => clearTimeout(timeOutId);
-    }
-    if (name === "price" && Number(variant.originalPrice) < Number(value)) {
-      // variants[id][name] = Number(variant.originalPrice);
-      notifyError("O preço de venda deve ser inferior ou igual ao preço do produto!");
-      setValue("price", variant.originalPrice);
-      setIsBulkUpdate(true);
-      const timeOutId = setTimeout(() => setIsBulkUpdate(false), 100);
-      return () => clearTimeout(timeOutId);
-    }
+
+    // Verificação de preço original e preço de venda (preço sem promo e preço cobrado)
+
+    // if (name === "originalPrice" && Number(value) < Number(variant.price)) {
+    //   // variants[id][name] = Number(variant.originalPrice);
+    //   notifyError("O preço deve ser superior ou igual ao preço original!");
+    //   setValue("originalPrice", variant.originalPrice);
+    //   setIsBulkUpdate(true);
+    //   const timeOutId = setTimeout(() => setIsBulkUpdate(false), 100);
+    //   return () => clearTimeout(timeOutId);
+    // }
+    // if (name === "price" && Number(variant.originalPrice) < Number(value)) {
+    //   // variants[id][name] = Number(variant.originalPrice);
+    //   notifyError("O preço de venda deve ser inferior ou igual ao preço do produto!");
+    //   setValue("price", variant.originalPrice);
+    //   setIsBulkUpdate(true);
+    //   const timeOutId = setTimeout(() => setIsBulkUpdate(false), 100);
+    //   return () => clearTimeout(timeOutId);
+    // }
     setVariants((pre) =>
       pre.map((com, i) => {
         if (i === id) {

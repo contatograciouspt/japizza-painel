@@ -1,9 +1,9 @@
 import requests from './httpService';
 
 const AttributeServices = {
-  getAllAttributes: async ({ type, option, option1, option2 }) => {
+  getAllAttributes: async ({ type, option, option1 }) => {
     return requests.get(
-      `/attributes?type=${type}&option=${option}&option1=${option1}&option2=${option2}`
+      `/attributes?type=${type}&option=${option}&option1=${option1}`
     );
   },
 

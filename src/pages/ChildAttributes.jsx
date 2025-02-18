@@ -48,7 +48,7 @@ const ChildAttributes = () => {
       type: "attribute",
       option: "Dropdown",
       option1: "Radio",
-      option2: "Checkbox",
+      // option2: "Checkbox",
     })
   );
 
