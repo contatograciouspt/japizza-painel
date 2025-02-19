@@ -31,6 +31,7 @@ import PageTitle from "@/components/Typography/PageTitle";
 import { SidebarContext } from "@/context/SidebarContext";
 import OrderServices from "@/services/OrderServices";
 import AnimatedContent from "@/components/common/AnimatedContent";
+import TabelaPedidosCustomizada from "@/components/vivawallet/TabelaPedidosCustomizada";
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -71,7 +72,40 @@ const Dashboard = () => {
     OrderServices.getDashboardAmount
   );
 
-  // console.log("dashboardOrderCount", dashboardOrderCount);
+  // Todas os pedidos feitos via viva wallet
+  const { data: allCustomOrders } = useAsync(OrderServices.getAllCustomOrders);
+
+  // filtrando o valor total dos pedidos
+  const allOrdersAmount = allCustomOrders.map((order) => order.amount);
+
+  // filtrando o valor total dos pedidos de hoje
+  const todayOrders = allCustomOrders.filter(order => {
+    const orderDate = new Date(order.createdAt);
+    const today = new Date();
+    
+    return orderDate.toDateString() === today.toDateString();
+  });
+  
+  // Calcular o valor total dos pedidos feitos hoje
+  const todayTotalAmount = todayOrders.length > 0 
+    ? todayOrders.reduce((total, order) => total + (order.amount / 100), 0)
+    : 0;
+
+  // filtrando o valor total dos pedidos de um dia anterior
+  const yesterdayOrders = allCustomOrders.filter(order => {
+    const orderDate = new Date(order.createdAt);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    return orderDate.toDateString() === yesterday.toDateString();
+  });
+
+  const yesterdayTotalAmount = yesterdayOrders.reduce((total, order) => {
+    // The amount comes in cents, so we divide by 100 to get the value in euros
+    return total + (order.amount / 100);
+  }, 0);
+
 
   const { dataTable, serviceData } = useFilter(dashboardRecentOrder?.orders);
 
@@ -238,9 +272,9 @@ const Dashboard = () => {
   return (
     <>
       <PageTitle>{t("DashboardOverview")}</PageTitle>
-
       <AnimatedContent>
-        <div className="grid gap-2 mb-8 xl:grid-cols-5 md:grid-cols-2">
+        <div className="grid gap-2  mb-8 xl:grid-cols-3 md:grid-cols-2">
+          {/* pedidos feitos no dia atual */}
           <CardItemTwo
             mode={mode}
             title="Today Order"
@@ -249,11 +283,11 @@ const Dashboard = () => {
             cash={todayCashPayment || 0}
             card={todayCardPayment || 0}
             credit={todayCreditPayment || 0}
-            price={todayOrderAmount || 0}
+            price={todayTotalAmount || 0}
             className="text-white dark:text-emerald-100 bg-teal-600"
             loading={loadingOrderAmount}
           />
-
+          {/* pedidos feitos no dia anterior */}
           <CardItemTwo
             mode={mode}
             title="Yesterday Order"
@@ -262,21 +296,20 @@ const Dashboard = () => {
             cash={yesterdayCashPayment || 0}
             card={yesterdayCardPayment || 0}
             credit={yesterdayCreditPayment || 0}
-            price={yesterdayOrderAmount || 0}
+            price={yesterdayTotalAmount || 0}
             className="text-white dark:text-orange-100 bg-orange-400"
             loading={loadingOrderAmount}
           />
-
+          {/* pedidos feitos no mes */}
           <CardItemTwo
             mode={mode}
             title2="ThisMonth"
             Icon={FiShoppingCart}
-            price={dashboardOrderAmount?.thisMonthlyOrderAmount || 0}
+            price={allOrdersAmount || 0}
             className="text-white dark:text-emerald-100 bg-blue-500"
             loading={loadingOrderAmount}
           />
-
-          <CardItemTwo
+          {/* <CardItemTwo
             mode={mode}
             title2="LastMonth"
             Icon={ImCreditCard}
@@ -284,7 +317,6 @@ const Dashboard = () => {
             price={dashboardOrderAmount?.lastMonthOrderAmount || 0}
             className="text-white dark:text-teal-100 bg-cyan-600"
           />
-
           <CardItemTwo
             mode={mode}
             title2="AllTimeSales"
@@ -292,26 +324,24 @@ const Dashboard = () => {
             price={dashboardOrderAmount?.totalAmount || 0}
             className="text-white dark:text-emerald-100 bg-emerald-600"
             loading={loadingOrderAmount}
-          />
+          /> */}
         </div>
-
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-2">
           <CardItem
-            title="Total Order"
+            title="Pedidos Totais"
             Icon={FiShoppingCart}
             loading={loadingOrderCount}
             quantity={dashboardOrderCount?.totalOrder || 0}
             className="text-orange-600 dark:text-orange-100 bg-orange-100 dark:bg-orange-500"
           />
           <CardItem
-            title={t("OrderPending")}
+            title="Pedidos Pendentes"
             Icon={FiRefreshCw}
             loading={loadingOrderCount}
             quantity={dashboardOrderCount?.totalPendingOrder?.count || 0}
-            amount={dashboardOrderCount?.totalPendingOrder?.total || 0}
             className="text-blue-600 dark:text-blue-100 bg-blue-100 dark:bg-blue-500"
           />
-          <CardItem
+          {/* <CardItem
             title={t("OrderProcessing")}
             Icon={FiTruck}
             loading={loadingOrderCount}
@@ -324,10 +354,9 @@ const Dashboard = () => {
             loading={loadingOrderCount}
             quantity={dashboardOrderCount?.totalDeliveredOrder || 0}
             className="text-emerald-600 dark:text-emerald-100 bg-emerald-100 dark:bg-emerald-500"
-          />
+          /> */}
         </div>
-
-        <div className="grid gap-4 md:grid-cols-2 my-8">
+        {/* <div className="grid gap-4 md:grid-cols-2 my-8">
           <ChartCard
             mode={mode}
             loading={loadingOrderAmount}
@@ -335,7 +364,6 @@ const Dashboard = () => {
           >
             <LineChart salesReport={salesReport} />
           </ChartCard>
-
           <ChartCard
             mode={mode}
             loading={loadingBestSellerProduct}
@@ -343,14 +371,12 @@ const Dashboard = () => {
           >
             <PieChart data={bestSellerProductChart} />
           </ChartCard>
-        </div>
+        </div> */}
+        
       </AnimatedContent>
-
-      <PageTitle>{t("RecentOrder")}</PageTitle>
-
+      {/* <PageTitle>{t("RecentOrder")}</PageTitle> */}
       {/* <Loading loading={loading} /> */}
-
-      {loadingRecentOrder ? (
+      {/* {loadingRecentOrder ? (
         <TableLoading row={5} col={4} />
       ) : error ? (
         <span className="text-center mx-auto text-red-500">{error}</span>
@@ -383,7 +409,8 @@ const Dashboard = () => {
         </TableContainer>
       ) : (
         <NotFound title="Sorry, There are no orders right now." />
-      )}
+      )} */}
+      <TabelaPedidosCustomizada />
     </>
   );
 };

@@ -35,10 +35,10 @@ const CardItem = ({
             >
               <Icon />
             </div>
-
             <div>
               <h6 className="text-sm mb-1 font-medium text-gray-600 dark:text-gray-400">
                 <span>{title}</span>{" "}
+                {/* pedidos pendentes */}
                 {amount && (
                   <span className="text-red-500 text-sm font-semibold">
                     ({getNumberTwo(amount)})

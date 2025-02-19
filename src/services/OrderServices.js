@@ -94,6 +94,13 @@ const OrderServices = {
   sendEmailInvoiceToCustomer: async (body) => {
     return requests.post("/order/customer/invoice", body);
   },
+
+  // obter orders customizadas da viva wallet
+  getAllCustomOrders: async () => {
+    return requests.get("/orders/custom");
+  }
+
+
 };
 
 export default OrderServices;

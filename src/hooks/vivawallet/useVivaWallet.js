@@ -28,6 +28,7 @@ export default function useVivaWallet() {
             email: "",
             name: "",
             zipCode: "",
+            nif: 0,
         },
         createdAt: "",
         _id: "",
