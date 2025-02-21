@@ -326,7 +326,6 @@ const ProductDrawer = ({ id }) => {
                   <Error errorName={errors.price} />
                 </div>
               </div>
-
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6 relative">
                 <LabelArea label={t("ProductQuantity")} />
                 <div className="col-span-8 sm:col-span-4">
@@ -344,7 +343,6 @@ const ProductDrawer = ({ id }) => {
                   <Error errorName={errors.stock} />
                 </div>
               </div>
-
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
                 <LabelArea label={t("ProductSlug")} />
                 <div className="col-span-8 sm:col-span-4">
@@ -362,7 +360,6 @@ const ProductDrawer = ({ id }) => {
                   <Error errorName={errors.slug} />
                 </div>
               </div>
-
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
                 <LabelArea label={t("ProductTag")} />
                 <div className="col-span-8 sm:col-span-4">
@@ -375,7 +372,6 @@ const ProductDrawer = ({ id }) => {
               </div>
             </div>
           )}
-
           {tapValue === "Combination" &&
             isCombination &&
             (attribue.length < 1 ? (
@@ -415,7 +411,6 @@ const ProductDrawer = ({ id }) => {
                     onChange={(v) => handleAddAtt(v)}
                     labelledBy="Select"
                   />
-
                   {attributes?.map((attribute, i) => (
                     <div key={attribute._id}>
                       <div className="flex w-full h-10 justify-between font-sans rounded-tl rounded-tr bg-gray-200 px-4 py-3 text-left text-sm font-normal text-gray-700 hover:bg-gray-200">
@@ -433,7 +428,6 @@ const ProductDrawer = ({ id }) => {
                     </div>
                   ))}
                 </div>
-
                 <div className="flex justify-end mb-6">
                   {attributes?.length > 0 && (
                     <Button
@@ -453,7 +447,6 @@ const ProductDrawer = ({ id }) => {
                 </div>
               </div>
             ))}
-
           {isCombination ? (
             <DrawerButton
               id={id}
@@ -470,7 +463,6 @@ const ProductDrawer = ({ id }) => {
             <DrawerButton id={id} title="Product" isSubmitting={isSubmitting} />
           )}
         </form>
-
         {tapValue === "Combination" &&
           isCombination &&
           variantTitle.length > 0 && (
@@ -495,7 +487,6 @@ const ProductDrawer = ({ id }) => {
                         </TableCell>
                       </tr>
                     </TableHeader>
-
                     <AttributeListTable
                       lang={language}
                       variants={variants}
