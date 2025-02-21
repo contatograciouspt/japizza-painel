@@ -40,7 +40,7 @@ function StatusBadge({ status }) {
 }
 
 export default function TabelaPedidosCustomizada() {
-    const [currentPage, setCurrentPage] = React.useState(1);
+    const [currentPage, setCurrentPage] = React.useState(1)
     const [isStatusModalOpen, setIsStatusModalOpen] = React.useState(false)
     const [selectedStatusOrder, setSelectedStatusOrder] = React.useState(null)
     const [newStatus, setNewStatus] = React.useState("")
@@ -58,9 +58,10 @@ export default function TabelaPedidosCustomizada() {
         getStatusColor
     } = useTabelaPedidosCustomizados()
 
-    const itemsPerPage = 5;
-    const totalPages = Math.ceil(orders.length / itemsPerPage);
-    const currentOrders = orders.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    const itemsPerPage = 20
+    const totalPages = Math.ceil(orders.length / itemsPerPage)
+    const sortedOrders = [...orders].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    const currentOrders = sortedOrders.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
     React.useEffect(() => {
         getAllOrders()
@@ -69,9 +70,9 @@ export default function TabelaPedidosCustomizada() {
     // Atualiza a página atual caso os pedidos sejam alterados e a página atual esteja fora do novo range
     React.useEffect(() => {
         if (currentPage > totalPages && totalPages > 0) {
-            setCurrentPage(1);
+            setCurrentPage(1)
         }
-    }, [orders, currentPage, totalPages]);
+    }, [orders, currentPage, totalPages])
 
     // Função para abrir o modal de confirmação de exclusão
     const handleRemoveOrder = (order) => {
@@ -130,6 +131,7 @@ export default function TabelaPedidosCustomizada() {
                                 <TableHeader>
                                     <tr>
                                         <TableCell>Pedidos</TableCell>
+                                        <TableCell>Data</TableCell>
                                         <TableCell>Status</TableCell>
                                         <TableCell>Ações</TableCell>
                                     </tr>
@@ -145,6 +147,7 @@ export default function TabelaPedidosCustomizada() {
                                                     size="small"
                                                 />
                                             </TableCell>
+                                            <TableCell>{formatDate(order.createdAt)}</TableCell>
                                             <TableCell>
                                                 <StatusBadge status={order.status} />
                                             </TableCell>
@@ -234,7 +237,6 @@ export default function TabelaPedidosCustomizada() {
                         <div className="space-y-4">
                             <div>
                                 <hr className="mb-2" />
-                                <p><strong>Data do Pedido:</strong> {formatDate(selectedOrder.createdAt)}</p>
                                 <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.amount)}</p>
                                 <p><strong>Custo do Envio:</strong> {selectedOrder.cart[0].shippingCost.toFixed(2) || "0.00"} €</p>
                                 <p><strong>Pagamento na Entrega:</strong> {selectedOrder.pagamentoNaEntrega ? "Sim" : "Não"} </p>
