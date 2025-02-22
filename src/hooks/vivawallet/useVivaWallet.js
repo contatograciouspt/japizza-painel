@@ -28,7 +28,7 @@ export default function useVivaWallet() {
         agendamento: {
             horario: "",
             data: "",
-        },
+        } || null,
         pagamentooNaEntrega: false,
         localizacao: {
             latitude: 0,

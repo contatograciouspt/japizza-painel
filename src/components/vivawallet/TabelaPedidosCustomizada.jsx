@@ -239,7 +239,7 @@ export default function TabelaPedidosCustomizada() {
                                 <hr className="mb-2" />
                                 <p><strong>Hora do Pedido:</strong> {new Date(selectedOrder.createdAt).getHours().toFixed(0)}:{new Date(selectedOrder.createdAt).getMinutes().toFixed(0)}</p>
                                 <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.amount)}</p>
-                                <p><strong>Custo do Envio:</strong> {selectedOrder.cart[0].shippingCost.toFixed(2) || "0.00"} €</p>
+                                <p><strong>Custo do Envio:</strong> {selectedOrder.cart[0].shippingCost || "0.00"} €</p>
                                 <p><strong>Pagamento na Entrega:</strong> {selectedOrder.pagamentoNaEntrega ? "Sim" : "Não"} </p>
                                 {selectedOrder.discount > 0 && (
                                     <p><strong>Desconto:</strong> {formatEuro(selectedOrder.discount)}</p>
@@ -259,8 +259,8 @@ export default function TabelaPedidosCustomizada() {
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Agendamento</h3>
                                 <hr className="mb-2" />
-                                <p><strong>Data:</strong> {new Date(selectedOrder.agendamento.data).toLocaleDateString('pt-PT') || "Sem data agendada"}</p>
-                                <p><strong>Hora:</strong> {selectedOrder.agendamento.hora} {selectedOrder.agendamento.horario || "Sem horário agendado"}</p>
+                                <p><strong>Data:</strong> {new Date(selectedOrder.agendamento?.data).toLocaleDateString('pt-PT') || "Sem data agendada"}</p>
+                                <p><strong>Hora:</strong> {selectedOrder.agendamento?.horario || "Sem horário agendado"}</p>
                             </div>
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Itens do Pedido</h3>
@@ -308,7 +308,7 @@ export default function TabelaPedidosCustomizada() {
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Informações Adicionais</h3>
                                 <hr className="mb-2" />
-                                <p>{selectedOrder.cart[0].user_info.additionalInformation || "Não informado"}</p>
+                                <p>{selectedOrder.additionalInformation || "Não informado"}</p>
                             </div>
                         </div>
                     )}
