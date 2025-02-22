@@ -237,12 +237,30 @@ export default function TabelaPedidosCustomizada() {
                         <div className="space-y-4">
                             <div>
                                 <hr className="mb-2" />
+                                <p><strong>Hora do Pedido:</strong> {new Date(selectedOrder.createdAt).getHours().toFixed(0)}:{new Date(selectedOrder.createdAt).getMinutes().toFixed(0)}</p>
                                 <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.amount)}</p>
                                 <p><strong>Custo do Envio:</strong> {selectedOrder.cart[0].shippingCost.toFixed(2) || "0.00"} €</p>
                                 <p><strong>Pagamento na Entrega:</strong> {selectedOrder.pagamentoNaEntrega ? "Sim" : "Não"} </p>
                                 {selectedOrder.discount > 0 && (
                                     <p><strong>Desconto:</strong> {formatEuro(selectedOrder.discount)}</p>
                                 )}
+                            </div>
+                            {/* Payment Method Details */}
+                            {selectedOrder.paymentMethodDetails && (
+                                <div>
+                                    <h3 className="text-lg font-semibold mb-2">Detalhes do Pagamento</h3>
+                                    <hr className="mb-2" />
+                                    <p><strong>Método:</strong> {selectedOrder.paymentMethodDetails.method}</p>
+                                    {selectedOrder.paymentMethodDetails.changeFor && (
+                                        <p><strong>Troco para:</strong> {selectedOrder.paymentMethodDetails.changeFor}€</p>
+                                    )}
+                                </div>
+                            )}
+                            <div>
+                                <h3 className="text-lg font-semibold mb-2">Agendamento</h3>
+                                <hr className="mb-2" />
+                                <p><strong>Data:</strong> {new Date(selectedOrder.agendamento.data).toLocaleDateString('pt-PT') || "Sem data agendada"}</p>
+                                <p><strong>Hora:</strong> {selectedOrder.agendamento.hora} {selectedOrder.agendamento.horario || "Sem horário agendado"}</p>
                             </div>
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Itens do Pedido</h3>
@@ -257,10 +275,21 @@ export default function TabelaPedidosCustomizada() {
                                     </div>
                                 ))}
                             </div>
+                            {/* Location Details */}
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Localização</h3>
                                 <hr className="mb-2" />
-                                <p>{selectedOrder.merchantTrns || "Não informado"}</p>
+                                {selectedOrder.localizacao ? (
+                                    <div>
+                                        <p><strong>Latitude:</strong> {selectedOrder.localizacao.latitude || "Latitude não informada"}</p>
+                                        <p><strong>Longitude:</strong> {selectedOrder.localizacao.longitude || "Longitude não informada"}</p>
+                                    </div>
+                                ) : (
+                                    <div>
+                                    <p>Latitude não informada</p>
+                                    <p>Longitude não informada</p>
+                                </div>
+                                )}
                             </div>
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Informações do Cliente</h3>
