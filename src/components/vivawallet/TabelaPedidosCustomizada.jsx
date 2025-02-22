@@ -297,14 +297,14 @@ export default function TabelaPedidosCustomizada() {
                                 <h3 className="text-lg font-semibold mb-2">Informações do Cliente</h3>
                                 <hr className="mb-2" />
                                 <div>
-                                    <p><strong>Nome:</strong> {selectedOrder.cart[0].user_info?.name || "Não informado"}</p>
-                                    <p><strong>Email:</strong> {selectedOrder.cart[0].user_info?.email || "Não informado"}</p>
-                                    <p><strong>NIF:</strong> {selectedOrder.cart[0].user_info?.nif || "Não informado"}</p>
-                                    <p><strong>Contato:</strong> {selectedOrder.cart[0].user_info?.contact || "Não informado"}</p>
-                                    <p><strong>Endereço:</strong> {selectedOrder.cart[0].user_info?.address || "Não informado"}</p>
-                                    <p><strong>Cidade:</strong> {selectedOrder.cart[0].user_info?.city || "Não informado"}</p>
-                                    <p><strong>Código Postal:</strong> {selectedOrder.cart[0].user_info?.zipCode || "Não informado"}</p>
-                                    <p><strong>País:</strong> {selectedOrder.cart[0].user_info?.country || "Não informado"}</p>
+                                    <p><strong>Nome:</strong> {selectedOrder.user_info?.name || "Não informado"}</p>
+                                    <p><strong>Email:</strong> {selectedOrder.user_info?.email || "Não informado"}</p>
+                                    <p><strong>NIF:</strong> {selectedOrder.user_info?.nif || "Não informado"}</p>
+                                    <p><strong>Contato:</strong> {selectedOrder.user_info?.contact || "Não informado"}</p>
+                                    <p><strong>Endereço:</strong> {selectedOrder.user_info?.address || "Não informado"}</p>
+                                    <p><strong>Cidade:</strong> {selectedOrder.user_info?.city || "Não informado"}</p>
+                                    <p><strong>Código Postal:</strong> {selectedOrder.user_info?.zipCode || "Não informado"}</p>
+                                    <p><strong>País:</strong> {selectedOrder.user_info?.country || "Não informado"}</p>
                                 </div>
                             </div>
                             <div>

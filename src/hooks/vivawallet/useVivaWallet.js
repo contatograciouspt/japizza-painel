@@ -27,12 +27,14 @@ export default function useVivaWallet() {
             zipCode: "",
             nif: ""
         },
+        zoneSoftId: "",
         amount: 0,
         discount: 0,
         status: "",
         agendamento: null,
         localizacao: null,
-        paymentMethodDetails: null
+        paymentMethodDetails: null,
+        additionalInformation: ""
     })
 
 
