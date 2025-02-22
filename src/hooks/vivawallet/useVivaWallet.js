@@ -8,45 +8,33 @@ export default function useVivaWallet() {
     const localStorageKey = "japizzaOrders"
     const lastUpdateKey = "japizzaLastUpdate"
     const [allOrders, setAllOrders] = React.useState({
-        amount: 0,
         cart: [{
+            _id: "",
+            productId: "",
             title: "",
             quantity: 0,
             price: 0,
+            itemTotal: 0,
+            variant: {}
         }],
-        discount: 0,
-        createdAt: "",
-        shippingCost: 0,
-        subTotal: 0,
-        total: 0,
-        status: "",
-        merchantTrns: "",
-        paymentMethodDetails: {
-            method: "",
-            changeFor: ""
-        },
-        agendamento: {
-            horario: "",
-            data: "",
-        } || null,
-        pagamentooNaEntrega: false,
-        localizacao: {
-            latitude: 0,
-            longitude: 0,
-        },
         user_info: {
+            name: "",
+            email: "",
+            contact: "",
             address: "",
             city: "",
-            contact: "",
             country: "",
-            email: "",
-            name: "",
             zipCode: "",
-            nif: 0,
+            nif: ""
         },
-        createdAt: "",
-        _id: "",
+        amount: 0,
+        discount: 0,
+        status: "",
+        agendamento: null,
+        localizacao: null,
+        paymentMethodDetails: null
     })
+
 
     // Função para salvar os pedidos no localStorage
     const saveOrdersToLocalStorage = (orders) => {

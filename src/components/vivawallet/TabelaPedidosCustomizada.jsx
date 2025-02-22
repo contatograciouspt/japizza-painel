@@ -265,13 +265,15 @@ export default function TabelaPedidosCustomizada() {
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Itens do Pedido</h3>
                                 <hr className="mb-2" />
-                                {selectedOrder.cart && selectedOrder.cart.map((item, i) => (
-                                    <div key={i}>
-                                        {item.cart && item.cart.map((cartItem, index) => (
-                                            <div key={index}>
-                                                <p><strong>{cartItem.quantity}</strong> {cartItem.title}</p>
-                                            </div>
-                                        ))}
+                                {selectedOrder.cart && selectedOrder.cart.map((item, index) => (
+                                    <div key={index} className="mb-2">
+                                        <p><strong>Produto:</strong> {item.title}</p>
+                                        <p><strong>Quantidade:</strong> {item.quantity}</p>
+                                        <p><strong>Preço:</strong> {formatEuro(item.price)}</p>
+                                        <p><strong>Total do Item:</strong> {formatEuro(item.itemTotal)}</p>
+                                        {item.variant && (
+                                            <p><strong>Atributos:</strong> {JSON.stringify(item.variant)}</p>
+                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -286,9 +288,9 @@ export default function TabelaPedidosCustomizada() {
                                     </div>
                                 ) : (
                                     <div>
-                                    <p>Latitude não informada</p>
-                                    <p>Longitude não informada</p>
-                                </div>
+                                        <p>Latitude não informada</p>
+                                        <p>Longitude não informada</p>
+                                    </div>
                                 )}
                             </div>
                             <div>
