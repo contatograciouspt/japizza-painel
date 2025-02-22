@@ -231,87 +231,91 @@ export default function TabelaPedidosCustomizada() {
                 </ModalFooter>
             </Modal>
             <Modal isOpen={isOrderModalOpen} onClose={handleCloseOrderModal}>
-                <ModalHeader>Resumo do Pedido</ModalHeader>
+                <ModalHeader>Resumo do Pedido #{selectedOrder?.orderCode}</ModalHeader>
                 <ModalBody>
                     {selectedOrder && (
                         <div className="space-y-4">
                             <div>
+                                <h3 className="text-lg font-semibold mb-2">Status do Pedido</h3>
                                 <hr className="mb-2" />
-                                <p><strong>Hora do Pedido:</strong> {new Date(selectedOrder.createdAt).getHours().toFixed(0)}:{new Date(selectedOrder.createdAt).getMinutes().toFixed(0)}</p>
-                                <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.amount)}</p>
-                                <p><strong>Custo do Envio:</strong> {selectedOrder.cart[0].shippingCost || "0.00"} €</p>
-                                <p><strong>Pagamento na Entrega:</strong> {selectedOrder.pagamentoNaEntrega ? "Sim" : "Não"} </p>
+                                <p className={`font-bold ${selectedOrder.status === 'Pago' ? 'text-green-600' :
+                                    selectedOrder.status === 'Pendente' ? 'text-yellow-600' : 'text-red-600'
+                                    }`}>
+                                    {selectedOrder.status}
+                                </p>
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-semibold mb-2">Detalhes do Pedido</h3>
+                                <hr className="mb-2" />
+                                <p><strong>Data/Hora:</strong> {formatDate(selectedOrder.createdAt)}</p>
+                                <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.total)}</p>
+                                <p><strong>Subtotal:</strong> {formatEuro(selectedOrder.subTotal)}</p>
+                                <p><strong>Frete:</strong> {formatEuro(selectedOrder.shippingCost)}</p>
+                                <p><strong>Método de Pagamento:</strong> {selectedOrder.paymentMethod}</p>
                                 {selectedOrder.discount > 0 && (
                                     <p><strong>Desconto:</strong> {formatEuro(selectedOrder.discount)}</p>
                                 )}
                             </div>
-                            {/* Payment Method Details */}
-                            {selectedOrder.paymentMethodDetails && (
-                                <div>
-                                    <h3 className="text-lg font-semibold mb-2">Detalhes do Pagamento</h3>
-                                    <hr className="mb-2" />
-                                    <p><strong>Método:</strong> {selectedOrder.paymentMethodDetails.method}</p>
-                                    {selectedOrder.paymentMethodDetails.changeFor && (
-                                        <p><strong>Troco para:</strong> {selectedOrder.paymentMethodDetails.changeFor}€</p>
-                                    )}
-                                </div>
-                            )}
-                            <div>
-                                <h3 className="text-lg font-semibold mb-2">Agendamento</h3>
-                                <hr className="mb-2" />
-                                <p><strong>Data:</strong> {new Date(selectedOrder.agendamento?.data).toLocaleDateString('pt-PT') || "Sem data agendada"}</p>
-                                <p><strong>Hora:</strong> {selectedOrder.agendamento?.horario || "Sem horário agendado"}</p>
-                            </div>
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Itens do Pedido</h3>
                                 <hr className="mb-2" />
-                                {selectedOrder.cart && selectedOrder.cart.map((item, index) => (
-                                    <div key={index} className="mb-2">
+                                {selectedOrder.cart.map((item, index) => (
+                                    <div key={index} className="mb-4 p-2 bg-gray-50 rounded">
                                         <p><strong>Produto:</strong> {item.title}</p>
                                         <p><strong>Quantidade:</strong> {item.quantity}</p>
-                                        <p><strong>Preço:</strong> {formatEuro(item.price)}</p>
+                                        <p><strong>Preço Unitário:</strong> {formatEuro(item.price)}</p>
                                         <p><strong>Total do Item:</strong> {formatEuro(item.itemTotal)}</p>
-                                        {item.variant && (
-                                            <p><strong>Atributos:</strong> {JSON.stringify(item.variant)}</p>
+                                        {item.variantNames && item.variantNames.length > 0 && (
+                                            <p><strong>Extras Selecionados:</strong> {item.variantNames.join(", ")}</p>
                                         )}
                                     </div>
                                 ))}
                             </div>
-                            {/* Location Details */}
-                            <div>
-                                <h3 className="text-lg font-semibold mb-2">Localização</h3>
-                                <hr className="mb-2" />
-                                {selectedOrder.localizacao ? (
-                                    <div>
-                                        <p><strong>Latitude:</strong> {selectedOrder.localizacao.latitude || "Latitude não informada"}</p>
-                                        <p><strong>Longitude:</strong> {selectedOrder.localizacao.longitude || "Longitude não informada"}</p>
-                                    </div>
-                                ) : (
-                                    <div>
-                                        <p>Latitude não informada</p>
-                                        <p>Longitude não informada</p>
-                                    </div>
-                                )}
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-semibold mb-2">Informações do Cliente</h3>
-                                <hr className="mb-2" />
+                            {selectedOrder.agendamento && (
                                 <div>
-                                    <p><strong>Nome:</strong> {selectedOrder.user_info?.name || "Não informado"}</p>
-                                    <p><strong>Email:</strong> {selectedOrder.user_info?.email || "Não informado"}</p>
-                                    <p><strong>NIF:</strong> {selectedOrder.user_info?.nif || "Não informado"}</p>
-                                    <p><strong>Contato:</strong> {selectedOrder.user_info?.contact || "Não informado"}</p>
-                                    <p><strong>Endereço:</strong> {selectedOrder.user_info?.address || "Não informado"}</p>
-                                    <p><strong>Cidade:</strong> {selectedOrder.user_info?.city || "Não informado"}</p>
-                                    <p><strong>Código Postal:</strong> {selectedOrder.user_info?.zipCode || "Não informado"}</p>
-                                    <p><strong>País:</strong> {selectedOrder.user_info?.country || "Não informado"}</p>
+                                    <h3 className="text-lg font-semibold mb-2">Agendamento</h3>
+                                    <hr className="mb-2" />
+                                    <p><strong>Data:</strong> {formatDate(selectedOrder.agendamento.data)}</p>
+                                    <p><strong>Horário:</strong> {selectedOrder.agendamento.horario}</p>
                                 </div>
-                            </div>
+                            )}
                             <div>
-                                <h3 className="text-lg font-semibold mb-2">Informações Adicionais</h3>
+                                <h3 className="text-lg font-semibold mb-2">Dados do Cliente</h3>
                                 <hr className="mb-2" />
-                                <p>{selectedOrder.additionalInformation || "Não informado"}</p>
+                                <p><strong>Nome:</strong> {selectedOrder.user_info.name}</p>
+                                <p><strong>Email:</strong> {selectedOrder.user_info.email}</p>
+                                <p><strong>Telefone:</strong> {selectedOrder.user_info.contact}</p>
+                                <p><strong>NIF:</strong> {selectedOrder.user_info.nif}</p>
+                                <p><strong>Endereço:</strong> {selectedOrder.user_info.address}</p>
+                                <p><strong>Cidade:</strong> {selectedOrder.user_info.city}</p>
+                                <p><strong>País:</strong> {selectedOrder.user_info.country}</p>
+                                <p><strong>CEP:</strong> {selectedOrder.user_info.zipCode}</p>
                             </div>
+                            {selectedOrder.user_info.additionalInformation && (
+                                <div>
+                                    <h3 className="text-lg font-semibold mb-2">Informações Adicionais</h3>
+                                    <hr className="mb-2" />
+                                    <p>{selectedOrder.user_info.additionalInformation}</p>
+                                </div>
+                            )}
+                            {selectedOrder.paymentMethodDetails && (
+                                <div>
+                                    <h3 className="text-lg font-semibold mb-2">Detalhes do Pagamento na Entrega</h3>
+                                    <hr className="mb-2" />
+                                    <p><strong>Forma de Pagamento:</strong> {selectedOrder.paymentMethodDetails.method}</p>
+                                    {selectedOrder.paymentMethodDetails.changeFor && (
+                                        <p><strong>Troco para:</strong> {formatEuro(selectedOrder.paymentMethodDetails.changeFor)}</p>
+                                    )}
+                                </div>
+                            )}
+                            {selectedOrder.localizacao && (
+                                <div>
+                                    <h3 className="text-lg font-semibold mb-2">Localização</h3>
+                                    <hr className="mb-2" />
+                                    <p><strong>Latitude:</strong> {selectedOrder.localizacao.latitude}</p>
+                                    <p><strong>Longitude:</strong> {selectedOrder.localizacao.longitude}</p>
+                                </div>
+                            )}
                         </div>
                     )}
                 </ModalBody>
