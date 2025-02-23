@@ -15,7 +15,8 @@ export default function useVivaWallet() {
             quantity: 0,
             price: 0,
             itemTotal: 0,
-            variant: {}
+            variant: {},
+            extras: [],
         }],
         user_info: {
             name: "",
@@ -25,14 +26,15 @@ export default function useVivaWallet() {
             city: "",
             country: "",
             zipCode: "",
-            nif: ""
+            nif: "",
+            additionalInformation: ""
         },
         zoneSoftId: "",
         amount: 0,
         discount: 0,
         status: "",
         agendamento: null,
-        localizacao: null,
+        localizacao: "",
         paymentMethodDetails: null,
         additionalInformation: ""
     })

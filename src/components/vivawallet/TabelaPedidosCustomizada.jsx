@@ -265,8 +265,8 @@ export default function TabelaPedidosCustomizada() {
                                         <p><strong>Quantidade:</strong> {item.quantity}</p>
                                         <p><strong>Preço Unitário:</strong> {formatEuro(item.price)}</p>
                                         <p><strong>Total do Item:</strong> {formatEuro(item.itemTotal)}</p>
-                                        {item.variantNames && item.variantNames.length > 0 && (
-                                            <p><strong>Extras Selecionados:</strong> {item.variantNames.join(", ")}</p>
+                                        {item.extras && item.extras.length > 0 && (
+                                            <p><strong>Extras Selecionados:</strong> {item.extras.join(", ")}</p>
                                         )}
                                     </div>
                                 ))}
@@ -312,8 +312,7 @@ export default function TabelaPedidosCustomizada() {
                                 <div>
                                     <h3 className="text-lg font-semibold mb-2">Localização</h3>
                                     <hr className="mb-2" />
-                                    <p><strong>Latitude:</strong> {selectedOrder.localizacao.latitude}</p>
-                                    <p><strong>Longitude:</strong> {selectedOrder.localizacao.longitude}</p>
+                                    <p><strong>Coordenadas:</strong> {selectedOrder.localizacao}</p>
                                 </div>
                             )}
                         </div>
