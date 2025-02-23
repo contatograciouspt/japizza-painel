@@ -31,11 +31,13 @@ export default function useVivaWallet() {
         },
         zoneSoftId: "",
         amount: 0,
+        frete: 0,
         discount: 0,
         status: "",
         agendamento: null,
         localizacao: "",
         paymentMethodDetails: null,
+        paymentMethod: "",
         additionalInformation: ""
     })
 

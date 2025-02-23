@@ -248,9 +248,8 @@ export default function TabelaPedidosCustomizada() {
                                 <h3 className="text-lg font-semibold mb-2">Detalhes do Pedido</h3>
                                 <hr className="mb-2" />
                                 <p><strong>Data/Hora:</strong> {formatDate(selectedOrder.createdAt)}</p>
-                                <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.total)}</p>
-                                <p><strong>Subtotal:</strong> {formatEuro(selectedOrder.subTotal)}</p>
-                                <p><strong>Frete:</strong> {formatEuro(selectedOrder.shippingCost)}</p>
+                                <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.amount)}</p>
+                                <p><strong>Frete:</strong> {formatEuro(selectedOrder.frete)}</p>
                                 <p><strong>Método de Pagamento:</strong> {selectedOrder.paymentMethod}</p>
                                 {selectedOrder.discount > 0 && (
                                     <p><strong>Desconto:</strong> {formatEuro(selectedOrder.discount)}</p>
@@ -263,10 +262,8 @@ export default function TabelaPedidosCustomizada() {
                                     <div key={index} className="mb-4 p-2 bg-gray-50 rounded">
                                         <p><strong>Produto:</strong> {item.title}</p>
                                         <p><strong>Quantidade:</strong> {item.quantity}</p>
-                                        <p><strong>Preço Unitário:</strong> {formatEuro(item.price)}</p>
-                                        <p><strong>Total do Item:</strong> {formatEuro(item.itemTotal)}</p>
                                         {item.extras && item.extras.length > 0 && (
-                                            <p><strong>Extras Selecionados:</strong> {item.extras.join(", ")}</p>
+                                            <p><strong>Extras:</strong> {item.extras.join(", ")}</p>
                                         )}
                                     </div>
                                 ))}
