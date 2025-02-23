@@ -37,6 +37,7 @@ export default function useVivaWallet() {
         agendamento: null,
         localizacao: "",
         paymentMethodDetails: null,
+        pagamentoNaEntrega: "",
         paymentMethod: "",
         additionalInformation: ""
     })

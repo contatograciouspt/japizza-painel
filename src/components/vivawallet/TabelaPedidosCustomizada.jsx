@@ -249,7 +249,7 @@ export default function TabelaPedidosCustomizada() {
                                 <hr className="mb-2" />
                                 <p><strong>Data/Hora:</strong> {formatDate(selectedOrder.createdAt)}</p>
                                 <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.amount)}</p>
-                                <p><strong>Frete:</strong> {formatEuro(selectedOrder.frete)}</p>
+                                <p><strong>Frete:</strong> {selectedOrder.frete.toFixed(2)} €</p>
                                 <p><strong>Método de Pagamento:</strong> {selectedOrder.paymentMethod}</p>
                                 {selectedOrder.discount > 0 && (
                                     <p><strong>Desconto:</strong> {formatEuro(selectedOrder.discount)}</p>
@@ -260,7 +260,7 @@ export default function TabelaPedidosCustomizada() {
                                 <hr className="mb-2" />
                                 {selectedOrder.cart.map((item, index) => (
                                     <div key={index} className="mb-4 p-2 bg-gray-50 rounded">
-                                        <p><strong>Produto:</strong> {item.title}</p>
+                                        <p><strong>Item:</strong> {item.title}</p>
                                         <p><strong>Quantidade:</strong> {item.quantity}</p>
                                         {item.extras && item.extras.length > 0 && (
                                             <p><strong>Extras:</strong> {item.extras.join(", ")}</p>
