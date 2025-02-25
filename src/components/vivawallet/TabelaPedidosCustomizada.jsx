@@ -116,8 +116,12 @@ export default function TabelaPedidosCustomizada() {
     // Função para lidar com a atualização do status do pedido
     const handleUpdateStatus = async () => {
         if (selectedStatusOrder && newStatus) {
-            await updateStatusOrderByID(selectedStatusOrder._id, newStatus)
-            handleCloseStatusModal()
+            const sucess = await updateStatusOrderByID(selectedStatusOrder._id, newStatus)
+            if (sucess) {
+                getAllOrders()
+                window.location.reload()
+                handleCloseStatusModal()
+            }
         }
     }
 
@@ -232,7 +236,7 @@ export default function TabelaPedidosCustomizada() {
             </Modal>
             <Modal isOpen={isOrderModalOpen} onClose={handleCloseOrderModal}>
                 <ModalHeader>Resumo do Pedido #{selectedOrder?.orderCode}</ModalHeader>
-                <ModalBody>
+                <ModalBody className="overflow-y-auto max-h-[80vh]">
                     {selectedOrder && (
                         <div className="space-y-4">
                             <div>
@@ -250,6 +254,7 @@ export default function TabelaPedidosCustomizada() {
                                 <p><strong>Data/Hora:</strong> {formatDate(selectedOrder.createdAt)}</p>
                                 <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.amount)}</p>
                                 <p><strong>Frete:</strong> {selectedOrder.frete.toFixed(2)} €</p>
+                                <p><strong>Retirada na Loja: </strong>{selectedOrder.retiradaNaLoja ? 'Sim' : 'Não'}</p>
                                 <p><strong>Método de Pagamento:</strong> {selectedOrder.paymentMethod}</p>
                                 {selectedOrder.discount > 0 && (
                                     <p><strong>Desconto:</strong> {formatEuro(selectedOrder.discount)}</p>
@@ -301,7 +306,7 @@ export default function TabelaPedidosCustomizada() {
                                     <hr className="mb-2" />
                                     <p><strong>Forma de Pagamento:</strong> {selectedOrder.paymentMethodDetails.method}</p>
                                     {selectedOrder.paymentMethodDetails.changeFor && (
-                                        <p><strong>Troco para:</strong> {formatEuro(selectedOrder.paymentMethodDetails.changeFor)}</p>
+                                        <p><strong>Troco para:</strong> {selectedOrder.paymentMethodDetails.changeFor} €</p>
                                     )}
                                 </div>
                             )}

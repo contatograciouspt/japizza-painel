@@ -36,12 +36,12 @@ export default function useVivaWallet() {
         status: "",
         agendamento: null,
         localizacao: "",
-        paymentMethodDetails: null,
+        paymentMethodDetails: "",
         pagamentoNaEntrega: "",
+        retiradaNaLoja: false,
         paymentMethod: "",
         additionalInformation: ""
     })
-
 
     // Função para salvar os pedidos no localStorage
     const saveOrdersToLocalStorage = (orders) => {
@@ -147,14 +147,27 @@ export default function useVivaWallet() {
         try {
             const response = await axios.put(`${updateOrder}/${id}`, { status: newStatus })
             if (response.status === 200) {
-                console.log("Status do pedido atualizado com sucesso")
-                // Atualiza o status no estado local
-                setAllOrders(prevOrders => prevOrders.map(order => order._id === id ? { ...order, status: newStatus } : order))
-            } else {
-                console.log("Erro ao atualizar status do pedido")
+                // If status is "Pago", send to ZoneSoft
+                if (newStatus === "Pago") {
+                    const order = allOrders.find(order => order._id === id)
+                    if (order?.orderCode) {
+                        await axios.post(`${import.meta.env.VITE_APP_API_URL}/zonesoft/ordercode`, {
+                            orderCode: order.orderCode
+                        })
+                    }
+                }
+
+                const updatedOrders = allOrders.map(order =>
+                    order._id === id ? { ...order, status: newStatus } : order
+                )
+                setAllOrders(updatedOrders)
+                saveOrdersToLocalStorage(updatedOrders)
+                return true
             }
+            return false
         } catch (error) {
             console.log(error)
+            return false
         }
     }
 

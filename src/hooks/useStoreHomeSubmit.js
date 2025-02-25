@@ -25,7 +25,7 @@ const useStoreHomeSubmit = () => {
   const [coupons, setCoupons] = useState([]);
   const [couponList, setCouponList] = useState([]);
   const [couponList1, setCouponList1] = useState([]);
-  const [language, setLanguage] = useState(lang || "en");
+  const [language, setLanguage] = useState(lang || "pt");
 
   const [isSave, setIsSave] = useState(true);
   const [printSlip, setPrintSlip] = useState(true);
@@ -1136,27 +1136,27 @@ const useStoreHomeSubmit = () => {
           setFaqMenuLink(res?.navbar?.faq_status);
           setPrivacyPolicyMenuLink(res?.navbar?.privacy_policy_status);
           setTermsConditionsMenuLink(res?.navbar?.term_and_condition_status);
-          setValue("help_text", res?.navbar?.help_text[language || "en"]);
+          setValue("help_text", res?.navbar?.help_text[language || "pt"]);
 
-          setValue("categories", res?.navbar?.categories[language || "en"]);
-          setValue("about_us", res?.navbar?.about_us[language || "en"]);
-          setValue("contact_us", res?.navbar?.contact_us[language || "en"]);
-          setValue("offers", res?.navbar?.offers[language || "en"]);
-          setValue("faq", res?.navbar?.faq[language || "en"]);
+          setValue("categories", res?.navbar?.categories[language || "pt"]);
+          setValue("about_us", res?.navbar?.about_us[language || "pt"]);
+          setValue("contact_us", res?.navbar?.contact_us[language || "pt"]);
+          setValue("offers", res?.navbar?.offers[language || "pt"]);
+          setValue("faq", res?.navbar?.faq[language || "pt"]);
           setValue(
             "privacy_policy",
-            res?.navbar?.privacy_policy[language || "en"]
+            res?.navbar?.privacy_policy[language || "pt"]
           );
           setValue(
             "term_and_condition",
-            res?.navbar?.term_and_condition[language || "en"]
+            res?.navbar?.term_and_condition[language || "pt"]
           );
 
-          setValue("pages", res?.navbar?.pages[language || "en"]);
-          setValue("my_account", res?.navbar?.my_account[language || "en"]);
-          setValue("login", res?.navbar?.login[language || "en"]);
-          setValue("logout", res?.navbar?.logout[language || "en"]);
-          setValue("checkout", res?.navbar?.checkout[language || "en"]);
+          setValue("pages", res?.navbar?.pages[language || "pt"]);
+          setValue("my_account", res?.navbar?.my_account[language || "pt"]);
+          setValue("login", res?.navbar?.login[language || "pt"]);
+          setValue("logout", res?.navbar?.logout[language || "pt"]);
+          setValue("checkout", res?.navbar?.checkout[language || "pt"]);
           setHeaderLogo(res?.navbar?.logo);
           setValue("phone_number", res?.navbar?.phone);
 
@@ -1191,57 +1191,57 @@ const useStoreHomeSubmit = () => {
 
           setValue(
             "discount_title",
-            res?.home?.discount_title[language || "en"]
+            res?.home?.discount_title[language || "pt"]
           );
           setValue(
             "promotion_title",
-            res?.home?.promotion_title[language || "en"]
+            res?.home?.promotion_title[language || "pt"]
           );
           setValue(
             "promotion_description",
-            res?.home?.promotion_description[language || "en"]
+            res?.home?.promotion_description[language || "pt"]
           );
           setValue(
             "promotion_button_name",
-            res?.home?.promotion_button_name[language || "en"]
+            res?.home?.promotion_button_name[language || "pt"]
           );
           setValue("promotion_button_link", res?.home?.promotion_button_link);
-          setValue("feature_title", res?.home?.feature_title[language || "en"]);
+          setValue("feature_title", res?.home?.feature_title[language || "pt"]);
           setValue(
             "feature_description",
-            res?.home?.feature_description[language || "en"]
+            res?.home?.feature_description[language || "pt"]
           );
           setValue("feature_product_limit", res?.home?.feature_product_limit);
-          setValue("popular_title", res?.home?.popular_title[language || "en"]);
+          setValue("popular_title", res?.home?.popular_title[language || "pt"]);
           setValue(
             "popular_description",
-            res?.home?.popular_description[language || "en"]
+            res?.home?.popular_description[language || "pt"]
           );
           setValue("popular_product_limit", res?.home?.popular_product_limit);
           setValue(
             "quick_delivery_subtitle",
-            res?.home?.quick_delivery_subtitle[language || "en"]
+            res?.home?.quick_delivery_subtitle[language || "pt"]
           );
           setValue(
             "quick_delivery_title",
-            res?.home?.quick_delivery_title[language || "en"]
+            res?.home?.quick_delivery_title[language || "pt"]
           );
           setValue(
             "quick_delivery_description",
-            res?.home?.quick_delivery_description[language || "en"]
+            res?.home?.quick_delivery_description[language || "pt"]
           );
           setValue(
             "quick_delivery_button",
-            res?.home?.quick_delivery_button[language || "en"]
+            res?.home?.quick_delivery_button[language || "pt"]
           );
           setValue("quick_delivery_link", res?.home?.quick_delivery_link);
           setValue(
             "latest_discount_title",
-            res?.home?.latest_discount_title[language || "en"]
+            res?.home?.latest_discount_title[language || "pt"]
           );
           setValue(
             "latest_discount_description",
-            res?.home?.latest_discount_description[language || "en"]
+            res?.home?.latest_discount_description[language || "pt"]
           );
           setValue(
             "latest_discount_product_limit",
@@ -1249,11 +1249,11 @@ const useStoreHomeSubmit = () => {
           );
           setValue(
             "daily_need_title",
-            res?.home?.daily_need_title[language || "en"]
+            res?.home?.daily_need_title[language || "pt"]
           );
           setValue(
             "daily_need_description",
-            res?.home?.daily_need_description[language || "en"]
+            res?.home?.daily_need_description[language || "pt"]
           );
           setValue("daily_need_app_link", res?.home?.daily_need_app_link);
           setValue("daily_need_google_link", res?.home?.daily_need_google_link);
@@ -1268,206 +1268,206 @@ const useStoreHomeSubmit = () => {
           setBottomDots(res?.slider?.bottom_dots);
           setBothSliderOption(res?.slider?.both_slider);
 
-          setValue("slider_title", res?.slider?.first_title[language || "en"]);
+          setValue("slider_title", res?.slider?.first_title[language || "pt"]);
           setValue(
             "slider_description",
-            res?.slider?.first_description[language || "en"]
+            res?.slider?.first_description[language || "pt"]
           );
           setValue(
             "slider_button_name",
-            res?.slider?.first_button[language || "en"]
+            res?.slider?.first_button[language || "pt"]
           );
           setValue("slider_button_link", res?.slider?.first_link);
           setValue(
             "slider_title_two",
-            res?.slider?.second_title[language || "en"]
+            res?.slider?.second_title[language || "pt"]
           );
           setValue(
             "slider_description_two",
-            res?.slider?.second_description[language || "en"]
+            res?.slider?.second_description[language || "pt"]
           );
           setValue(
             "slider_button_name_two",
-            res?.slider?.second_button[language || "en"]
+            res?.slider?.second_button[language || "pt"]
           );
           setValue("slider_button_link_two", res?.slider?.second_link);
           setValue(
             "slider_title_three",
-            res?.slider?.third_title[language || "en"]
+            res?.slider?.third_title[language || "pt"]
           );
           setValue(
             "slider_description_three",
-            res?.slider?.third_description[language || "en"]
+            res?.slider?.third_description[language || "pt"]
           );
           setValue(
             "slider_button_name_three",
-            res?.slider?.third_button[language || "en"]
+            res?.slider?.third_button[language || "pt"]
           );
           setValue("slider_button_link_three", res?.slider?.third_link);
           setValue(
             "slider_title_four",
-            res?.slider?.four_title[language || "en"]
+            res?.slider?.four_title[language || "pt"]
           );
           setValue(
             "slider_description_four",
-            res?.slider?.four_description[language || "en"]
+            res?.slider?.four_description[language || "pt"]
           );
           setValue(
             "slider_button_name_four",
-            res?.slider?.four_button[language || "en"]
+            res?.slider?.four_button[language || "pt"]
           );
           setValue("slider_button_link_four", res?.slider?.four_link);
           setValue(
             "slider_title_five",
-            res?.slider?.five_title[language || "en"]
+            res?.slider?.five_title[language || "pt"]
           );
           setValue(
             "slider_description_five",
-            res?.slider?.five_description[language || "en"]
+            res?.slider?.five_description[language || "pt"]
           );
           setValue(
             "slider_button_name_five",
-            res?.slider?.five_button[language || "en"]
+            res?.slider?.five_button[language || "pt"]
           );
           setValue("slider_button_link_five", res?.slider?.five_link);
 
           //checkout
           setValue(
             "personal_details",
-            res?.checkout?.personal_details[language || "en"]
+            res?.checkout?.personal_details[language || "pt"]
           );
-          setValue("first_name", res?.checkout?.first_name[language || "en"]);
-          setValue("last_name", res?.checkout?.last_name[language || "en"]);
+          setValue("first_name", res?.checkout?.first_name[language || "pt"]);
+          setValue("last_name", res?.checkout?.last_name[language || "pt"]);
           setValue(
             "email_address",
-            res?.checkout?.email_address[language || "en"]
+            res?.checkout?.email_address[language || "pt"]
           );
           setValue(
             "checkout_phone",
-            res?.checkout?.checkout_phone[language || "en"]
+            res?.checkout?.checkout_phone[language || "pt"]
           );
           setValue(
             "shipping_details",
-            res?.checkout?.shipping_details[language || "en"]
+            res?.checkout?.shipping_details[language || "pt"]
           );
           setValue(
             "street_address",
-            res?.checkout?.street_address[language || "en"]
+            res?.checkout?.street_address[language || "pt"]
           );
-          setValue("city", res?.checkout?.city[language || "en"]);
-          setValue("country", res?.checkout?.country[language || "en"]);
-          setValue("zip_code", res?.checkout?.zip_code[language || "en"]);
+          setValue("city", res?.checkout?.city[language || "pt"]);
+          setValue("country", res?.checkout?.country[language || "pt"]);
+          setValue("zip_code", res?.checkout?.zip_code[language || "pt"]);
           setValue(
             "shipping_cost",
-            res?.checkout?.shipping_cost[language || "en"]
+            res?.checkout?.shipping_cost[language || "pt"]
           );
           setValue(
             "shipping_name_one",
-            res?.checkout?.shipping_name_one[language || "en"]
+            res?.checkout?.shipping_name_one[language || "pt"]
           );
           setValue(
             "shipping_one_desc",
-            res?.checkout?.shipping_one_desc[language || "en"]
+            res?.checkout?.shipping_one_desc[language || "pt"]
           );
           setValue("shipping_one_cost", res?.checkout?.shipping_one_cost);
           setValue(
             "shipping_name_two",
-            res?.checkout?.shipping_name_two[language || "en"]
+            res?.checkout?.shipping_name_two[language || "pt"]
           );
           setValue(
             "shipping_two_desc",
-            res?.checkout?.shipping_two_desc[language || "en"]
+            res?.checkout?.shipping_two_desc[language || "pt"]
           );
           setValue("shipping_two_cost", res?.checkout?.shipping_two_cost);
           setValue(
             "payment_method",
-            res?.checkout?.payment_method[language || "en"]
+            res?.checkout?.payment_method[language || "pt"]
           );
           setValue(
             "continue_button",
-            res?.checkout?.continue_button[language || "en"]
+            res?.checkout?.continue_button[language || "pt"]
           );
           setValue(
             "confirm_button",
-            res?.checkout?.confirm_button[language || "en"]
+            res?.checkout?.confirm_button[language || "pt"]
           );
           setValue(
             "order_summary",
-            res?.checkout?.order_summary[language || "en"]
+            res?.checkout?.order_summary[language || "pt"]
           );
           setValue(
             "apply_button",
-            res?.checkout?.apply_button[language || "en"]
+            res?.checkout?.apply_button[language || "pt"]
           );
-          setValue("sub_total", res?.checkout?.sub_total[language || "en"]);
-          setValue("discount", res?.checkout?.discount[language || "en"]);
-          setValue("total_cost", res?.checkout?.total_cost[language || "en"]);
+          setValue("sub_total", res?.checkout?.sub_total[language || "pt"]);
+          setValue("discount", res?.checkout?.discount[language || "pt"]);
+          setValue("total_cost", res?.checkout?.total_cost[language || "pt"]);
 
           //dashboard
           setValue(
             "invoice_message_first",
-            res?.dashboard?.invoice_message_first[language || "en"]
+            res?.dashboard?.invoice_message_first[language || "pt"]
           );
           setValue(
             "invoice_message_last",
-            res?.dashboard?.invoice_message_last[language || "en"]
+            res?.dashboard?.invoice_message_last[language || "pt"]
           );
           setValue(
             "print_button",
-            res?.dashboard?.print_button[language || "en"]
+            res?.dashboard?.print_button[language || "pt"]
           );
           setValue(
             "download_button",
-            res?.dashboard?.download_button[language || "en"]
+            res?.dashboard?.download_button[language || "pt"]
           );
           setValue(
             "dashboard_title",
-            res?.dashboard?.dashboard_title[language || "en"]
+            res?.dashboard?.dashboard_title[language || "pt"]
           );
           setValue(
             "total_order",
-            res?.dashboard?.total_order[language || "en"]
+            res?.dashboard?.total_order[language || "pt"]
           );
           setValue(
             "pending_order",
-            res?.dashboard?.pending_order[language || "en"]
+            res?.dashboard?.pending_order[language || "pt"]
           );
           setValue(
             "processing_order",
-            res?.dashboard?.processing_order[language || "en"]
+            res?.dashboard?.processing_order[language || "pt"]
           );
           setValue(
             "complete_order",
-            res?.dashboard?.complete_order[language || "en"]
+            res?.dashboard?.complete_order[language || "pt"]
           );
           setValue(
             "recent_order",
-            res?.dashboard?.recent_order[language || "en"]
+            res?.dashboard?.recent_order[language || "pt"]
           );
-          setValue("my_order", res?.dashboard?.my_order[language || "en"]);
+          setValue("my_order", res?.dashboard?.my_order[language || "pt"]);
           setValue(
             "update_profile",
-            res?.dashboard?.update_profile[language || "en"]
+            res?.dashboard?.update_profile[language || "pt"]
           );
-          setValue("full_name", res?.dashboard?.full_name[language || "en"]);
-          setValue("address", res?.dashboard?.address[language || "en"]);
-          setValue("user_phone", res?.dashboard?.user_phone[language || "en"]);
-          setValue("user_email", res?.dashboard?.user_email[language || "en"]);
+          setValue("full_name", res?.dashboard?.full_name[language || "pt"]);
+          setValue("address", res?.dashboard?.address[language || "pt"]);
+          setValue("user_phone", res?.dashboard?.user_phone[language || "pt"]);
+          setValue("user_email", res?.dashboard?.user_email[language || "pt"]);
           setValue(
             "update_button",
-            res?.dashboard?.update_button[language || "en"]
+            res?.dashboard?.update_button[language || "pt"]
           );
           setValue(
             "current_password",
-            res?.dashboard?.current_password[language || "en"]
+            res?.dashboard?.current_password[language || "pt"]
           );
           setValue(
             "new_password",
-            res?.dashboard?.new_password[language || "en"]
+            res?.dashboard?.new_password[language || "pt"]
           );
           setValue(
             "change_password",
-            res?.dashboard?.change_password[language || "en"]
+            res?.dashboard?.change_password[language || "pt"]
           );
 
           //footer
@@ -1483,20 +1483,20 @@ const useStoreHomeSubmit = () => {
 
           setValue(
             "promo_free_shipping",
-            res?.footer?.shipping_card[language || "en"]
+            res?.footer?.shipping_card[language || "pt"]
           );
           setValue(
             "promo_support",
-            res?.footer?.support_card[language || "en"]
+            res?.footer?.support_card[language || "pt"]
           );
           setValue(
             "promo_payment",
-            res?.footer?.payment_card[language || "en"]
+            res?.footer?.payment_card[language || "pt"]
           );
-          setValue("promo_offer", res?.footer?.offer_card[language || "en"]);
+          setValue("promo_offer", res?.footer?.offer_card[language || "pt"]);
           setValue(
             "footer_block_one_title",
-            res?.footer?.block1_title[language || "en"]
+            res?.footer?.block1_title[language || "pt"]
           );
 
           setValue("footer_block_one_link_one", res?.footer?.block1_sub_link1);
@@ -1509,24 +1509,24 @@ const useStoreHomeSubmit = () => {
 
           setValue(
             "footer_block_one_link_one_title",
-            res?.footer?.block1_sub_title1[language || "en"]
+            res?.footer?.block1_sub_title1[language || "pt"]
           );
           setValue(
             "footer_block_one_link_two_title",
-            res?.footer?.block1_sub_title2[language || "en"]
+            res?.footer?.block1_sub_title2[language || "pt"]
           );
           setValue(
             "footer_block_one_link_three_title",
-            res?.footer?.block1_sub_title3[language || "en"]
+            res?.footer?.block1_sub_title3[language || "pt"]
           );
           setValue(
             "footer_block_one_link_four_title",
-            res?.footer?.block1_sub_title4[language || "en"]
+            res?.footer?.block1_sub_title4[language || "pt"]
           );
 
           setValue(
             "footer_block_two_title",
-            res?.footer?.block2_title[language || "en"]
+            res?.footer?.block2_title[language || "pt"]
           );
           setValue("footer_block_two_link_one", res?.footer?.block2_sub_link1);
           setValue("footer_block_two_link_two", res?.footer?.block2_sub_link2);
@@ -1538,24 +1538,24 @@ const useStoreHomeSubmit = () => {
 
           setValue(
             "footer_block_two_link_one_title",
-            res?.footer?.block2_sub_title1[language || "en"]
+            res?.footer?.block2_sub_title1[language || "pt"]
           );
           setValue(
             "footer_block_two_link_two_title",
-            res?.footer?.block2_sub_title2[language || "en"]
+            res?.footer?.block2_sub_title2[language || "pt"]
           );
           setValue(
             "footer_block_two_link_three_title",
-            res?.footer?.block2_sub_title3[language || "en"]
+            res?.footer?.block2_sub_title3[language || "pt"]
           );
           setValue(
             "footer_block_two_link_four_title",
-            res?.footer?.block2_sub_title4[language || "en"]
+            res?.footer?.block2_sub_title4[language || "pt"]
           );
 
           setValue(
             "footer_block_three_title",
-            res?.footer?.block3_title[language || "en"]
+            res?.footer?.block3_title[language || "pt"]
           );
           setValue(
             "footer_block_three_link_one",
@@ -1576,24 +1576,24 @@ const useStoreHomeSubmit = () => {
 
           setValue(
             "footer_block_three_link_one_title",
-            res?.footer?.block3_sub_title1[language || "en"]
+            res?.footer?.block3_sub_title1[language || "pt"]
           );
           setValue(
             "footer_block_three_link_two_title",
-            res?.footer?.block3_sub_title2[language || "en"]
+            res?.footer?.block3_sub_title2[language || "pt"]
           );
           setValue(
             "footer_block_three_link_three_title",
-            res?.footer?.block3_sub_title3[language || "en"]
+            res?.footer?.block3_sub_title3[language || "pt"]
           );
           setValue(
             "footer_block_three_link_four_title",
-            res?.footer?.block3_sub_title4[language || "en"]
+            res?.footer?.block3_sub_title4[language || "pt"]
           );
 
           setValue(
             "footer_block_four_address",
-            res?.footer?.block4_address[language || "en"]
+            res?.footer?.block4_address[language || "pt"]
           );
           setValue("footer_block_four_phone", res?.footer?.block4_phone);
           setValue("footer_block_four_email", res?.footer?.block4_email);
@@ -1613,7 +1613,7 @@ const useStoreHomeSubmit = () => {
           );
           setValue(
             "slug_page_card_description_one",
-            res?.slug?.card_description_one[language || "en"]
+            res?.slug?.card_description_one[language || "pt"]
           );
 
           setValue(
@@ -1622,7 +1622,7 @@ const useStoreHomeSubmit = () => {
           );
           setValue(
             "slug_page_card_description_two",
-            res?.slug?.card_description_two[language || "en"]
+            res?.slug?.card_description_two[language || "pt"]
           );
 
           setValue(
@@ -1631,7 +1631,7 @@ const useStoreHomeSubmit = () => {
           );
           setValue(
             "slug_page_card_description_three",
-            res?.slug?.card_description_three[language || "en"]
+            res?.slug?.card_description_three[language || "pt"]
           );
 
           setValue(
@@ -1640,7 +1640,7 @@ const useStoreHomeSubmit = () => {
           );
           setValue(
             "slug_page_card_description_four",
-            res?.slug?.card_description_four[language || "en"]
+            res?.slug?.card_description_four[language || "pt"]
           );
 
           setValue(
@@ -1649,7 +1649,7 @@ const useStoreHomeSubmit = () => {
           );
           setValue(
             "slug_page_card_description_five",
-            res?.slug?.card_description_five[language || "en"]
+            res?.slug?.card_description_five[language || "pt"]
           );
 
           setValue(
@@ -1658,7 +1658,7 @@ const useStoreHomeSubmit = () => {
           );
           setValue(
             "slug_page_card_description_six",
-            res?.slug?.card_description_six[language || "en"]
+            res?.slug?.card_description_six[language || "pt"]
           );
 
           setValue(
@@ -1667,7 +1667,7 @@ const useStoreHomeSubmit = () => {
           );
           setValue(
             "slug_page_card_description_seven",
-            res?.slug?.card_description_seven[language || "en"]
+            res?.slug?.card_description_seven[language || "pt"]
           );
 
           // about us
@@ -1686,102 +1686,102 @@ const useStoreHomeSubmit = () => {
           setOurFounderFourImage(res?.about_us?.founder_four_img);
           setOurFounderFiveImage(res?.about_us?.founder_five_img);
           setOurFounderSixImage(res?.about_us?.founder_six_img);
-          setValue("about_page_title", res?.about_us?.title[language || "en"]);
+          setValue("about_page_title", res?.about_us?.title[language || "pt"]);
           setValue(
             "about_page_Top_title",
-            res?.about_us?.top_title[language || "en"]
+            res?.about_us?.top_title[language || "pt"]
           );
           setValue(
             "about_us_top_description",
-            res?.about_us?.top_description[language || "en"]
+            res?.about_us?.top_description[language || "pt"]
           );
           setValue(
             "about_page_Top_left_box_one_title",
-            res?.about_us?.card_one_title[language || "en"]
+            res?.about_us?.card_one_title[language || "pt"]
           );
           setValue(
             "about_page_Top_left_box_one_subtitle",
-            res?.about_us?.card_one_sub[language || "en"]
+            res?.about_us?.card_one_sub[language || "pt"]
           );
           setValue(
             "about_us_top_box_one_description",
-            res?.about_us?.card_one_description[language || "en"]
+            res?.about_us?.card_one_description[language || "pt"]
           );
           setValue(
             "about_page_Top_left_box_two_title",
-            res?.about_us?.card_two_title[language || "en"]
+            res?.about_us?.card_two_title[language || "pt"]
           );
           setValue(
             "about_page_Top_left_box_two_subtitle",
-            res?.about_us?.card_two_sub[language || "en"]
+            res?.about_us?.card_two_sub[language || "pt"]
           );
           setValue(
             "about_us_top_box_two_description",
-            res?.about_us?.card_two_description[language || "en"]
+            res?.about_us?.card_two_description[language || "pt"]
           );
           setValue(
             "about_us_middle_description_one",
-            res?.about_us?.middle_description_one[language || "en"]
+            res?.about_us?.middle_description_one[language || "pt"]
           );
           setValue(
             "about_us_middle_description_two",
-            res?.about_us?.middle_description_two[language || "en"]
+            res?.about_us?.middle_description_two[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_title",
-            res?.about_us?.founder_title[language || "en"]
+            res?.about_us?.founder_title[language || "pt"]
           );
           setValue(
             "about_us_ourfounder_description",
-            res?.about_us?.founder_description[language || "en"]
+            res?.about_us?.founder_description[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_one_title",
-            res?.about_us?.founder_one_name[language || "en"]
+            res?.about_us?.founder_one_name[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_one_sub_title",
-            res?.about_us?.founder_one_sub[language || "en"]
+            res?.about_us?.founder_one_sub[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_two_title",
-            res?.about_us?.founder_two_name[language || "en"]
+            res?.about_us?.founder_two_name[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_two_sub_title",
-            res?.about_us?.founder_two_sub[language || "en"]
+            res?.about_us?.founder_two_sub[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_three_title",
-            res?.about_us?.founder_three_name[language || "en"]
+            res?.about_us?.founder_three_name[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_three_sub_title",
-            res?.about_us?.founder_three_sub[language || "en"]
+            res?.about_us?.founder_three_sub[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_four_title",
-            res?.about_us?.founder_four_name[language || "en"]
+            res?.about_us?.founder_four_name[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_four_sub_title",
-            res?.about_us?.founder_four_sub[language || "en"]
+            res?.about_us?.founder_four_sub[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_five_title",
-            res?.about_us?.founder_five_name[language || "en"]
+            res?.about_us?.founder_five_name[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_five_sub_title",
-            res?.about_us?.founder_five_sub[language || "en"]
+            res?.about_us?.founder_five_sub[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_six_title",
-            res?.about_us?.founder_six_name[language || "en"]
+            res?.about_us?.founder_six_name[language || "pt"]
           );
           setValue(
             "about_page_ourfounder_six_sub_title",
-            res?.about_us?.founder_six_sub[language || "en"]
+            res?.about_us?.founder_six_sub[language || "pt"]
           );
 
           //contact us
@@ -1795,55 +1795,55 @@ const useStoreHomeSubmit = () => {
           setContactFormStatus(res?.contact_us?.form_status);
           setValue(
             "contact_page_title",
-            res?.contact_us?.title[language || "en"]
+            res?.contact_us?.title[language || "pt"]
           );
           setValue(
             "email_box_title",
-            res?.contact_us?.email_box_title[language || "en"]
+            res?.contact_us?.email_box_title[language || "pt"]
           );
           setValue(
             "email_box_email",
-            res?.contact_us?.email_box_email[language || "en"]
+            res?.contact_us?.email_box_email[language || "pt"]
           );
           setValue(
             "email_box_text",
-            res?.contact_us?.email_box_text[language || "en"]
+            res?.contact_us?.email_box_text[language || "pt"]
           );
           setValue(
             "callUs_box_title",
-            res?.contact_us?.call_box_title[language || "en"]
+            res?.contact_us?.call_box_title[language || "pt"]
           );
           setValue(
             "callUs_box_phone",
-            res?.contact_us?.call_box_phone[language || "en"]
+            res?.contact_us?.call_box_phone[language || "pt"]
           );
           setValue(
             "callUs_box_text",
-            res?.contact_us?.call_box_text[language || "en"]
+            res?.contact_us?.call_box_text[language || "pt"]
           );
           setValue(
             "address_box_title",
-            res?.contact_us?.address_box_title[language || "en"]
+            res?.contact_us?.address_box_title[language || "pt"]
           );
           setValue(
             "address_box_address_one",
-            res?.contact_us?.address_box_address_one[language || "en"]
+            res?.contact_us?.address_box_address_one[language || "pt"]
           );
           setValue(
             "address_box_address_two",
-            res?.contact_us?.address_box_address_two[language || "en"]
+            res?.contact_us?.address_box_address_two[language || "pt"]
           );
           setValue(
             "address_box_address_three",
-            res?.contact_us?.address_box_address_three[language || "en"]
+            res?.contact_us?.address_box_address_three[language || "pt"]
           );
           setValue(
             "contact_form_title",
-            res?.contact_us?.form_title[language || "en"]
+            res?.contact_us?.form_title[language || "pt"]
           );
           setValue(
             "contact_form_description",
-            res?.contact_us?.form_description[language || "en"]
+            res?.contact_us?.form_description[language || "pt"]
           );
 
           //privacy policy
@@ -1851,7 +1851,7 @@ const useStoreHomeSubmit = () => {
           setPrivacyPolicyHeaderBg(res?.privacy_policy?.header_bg);
           setValue(
             "privacy_page_title",
-            res?.privacy_policy?.title[language || "en"]
+            res?.privacy_policy?.title[language || "pt"]
           );
 
           setTextEdit(
@@ -1865,7 +1865,7 @@ const useStoreHomeSubmit = () => {
           setTermsConditionsHeaderBg(res?.term_and_condition?.header_bg);
           setValue(
             "termsConditions_page_title",
-            res?.term_and_condition?.title[language || "en"]
+            res?.term_and_condition?.title[language || "pt"]
           );
 
           setTermsConditionsTextEdit(
@@ -1880,53 +1880,53 @@ const useStoreHomeSubmit = () => {
           setFaqLeftColImage(res?.faq?.left_img);
           setFaqLeftColStatus(res?.faq?.leftcol_status);
           setFaqRightColStatus(res?.faq?.rightcol_status);
-          setValue("faq_page_title", res?.faq?.title[language || "en"]);
-          setValue("faq_title_one", res?.faq?.faq_one[language || "en"]);
+          setValue("faq_page_title", res?.faq?.title[language || "pt"]);
+          setValue("faq_title_one", res?.faq?.faq_one[language || "pt"]);
           setValue(
             "faq_description_one",
-            res?.faq?.description_one[language || "en"]
+            res?.faq?.description_one[language || "pt"]
           );
-          setValue("faq_title_two", res?.faq?.faq_two[language || "en"]);
+          setValue("faq_title_two", res?.faq?.faq_two[language || "pt"]);
           setValue(
             "faq_description_two",
-            res?.faq?.description_two[language || "en"]
+            res?.faq?.description_two[language || "pt"]
           );
-          setValue("faq_title_three", res?.faq?.faq_three[language || "en"]);
+          setValue("faq_title_three", res?.faq?.faq_three[language || "pt"]);
           setValue(
             "faq_description_three",
-            res?.faq?.description_three[language || "en"]
+            res?.faq?.description_three[language || "pt"]
           );
-          setValue("faq_title_four", res?.faq?.faq_four[language || "en"]);
+          setValue("faq_title_four", res?.faq?.faq_four[language || "pt"]);
           setValue(
             "faq_description_four",
-            res?.faq?.description_four[language || "en"]
+            res?.faq?.description_four[language || "pt"]
           );
-          setValue("faq_title_five", res?.faq?.faq_five[language || "en"]);
+          setValue("faq_title_five", res?.faq?.faq_five[language || "pt"]);
           setValue(
             "faq_description_five",
-            res?.faq?.description_five[language || "en"]
+            res?.faq?.description_five[language || "pt"]
           );
-          setValue("faq_title_six", res?.faq?.faq_six[language || "en"]);
+          setValue("faq_title_six", res?.faq?.faq_six[language || "pt"]);
           setValue(
             "faq_description_six",
-            res?.faq?.description_six[language || "en"]
+            res?.faq?.description_six[language || "pt"]
           );
-          setValue("faq_title_seven", res?.faq?.faq_seven[language || "en"]);
+          setValue("faq_title_seven", res?.faq?.faq_seven[language || "pt"]);
           setValue(
             "faq_description_seven",
-            res?.faq?.description_seven[language || "en"]
+            res?.faq?.description_seven[language || "pt"]
           );
-          setValue("faq_title_eight", res?.faq?.faq_eight[language || "en"]);
+          setValue("faq_title_eight", res?.faq?.faq_eight[language || "pt"]);
           setValue(
             "faq_description_eight",
-            res?.faq?.description_eight[language || "en"]
+            res?.faq?.description_eight[language || "pt"]
           );
 
           //offers
           setOffersPageHeader(res?.offers?.header_status);
           setOffersHeaderBg(res?.offers?.header_bg);
 
-          setValue("offers_page_title", res?.offers?.title[language || "en"]);
+          setValue("offers_page_title", res?.offers?.title[language || "pt"]);
           // setValue('offers_coupon_code', res.offers_coupon_code);
           // setCouponList1(res?.offers?.coupon_code);
           const coupon_code = res?.offers?.coupon_code?.map((coupon) => {
