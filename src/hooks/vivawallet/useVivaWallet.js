@@ -5,8 +5,10 @@ export default function useVivaWallet() {
     const getOrders = import.meta.env.VITE_APP_URL_ORDERS
     const updateOrder = import.meta.env.VITE_APP_URL_UPDATE_ORDER
     const deleteOrder = import.meta.env.VITE_APP_URL_DELETE_ORDER
+    const orderCodeUrl = import.meta.env.VITE_APP_URL_ZONESOFT_ORDER
     const localStorageKey = "japizzaOrders"
     const lastUpdateKey = "japizzaLastUpdate"
+    const [loading, setLoading] = React.useState(false)
     const [allOrders, setAllOrders] = React.useState({
         cart: [{
             _id: "",
@@ -144,6 +146,7 @@ export default function useVivaWallet() {
     }
 
     const updateStatusOrderByID = async (id, newStatus) => {
+        setLoading(true)
         try {
             const response = await axios.put(`${updateOrder}/${id}`, { status: newStatus })
             if (response.status === 200) {
@@ -151,7 +154,7 @@ export default function useVivaWallet() {
                 if (newStatus === "Pago") {
                     const order = allOrders.find(order => order._id === id)
                     if (order?.orderCode) {
-                        await axios.post(`${import.meta.env.VITE_APP_API_URL}/zonesoft/ordercode`, {
+                        await axios.post(`${orderCodeUrl}`, {
                             orderCode: order.orderCode
                         })
                     }
@@ -168,10 +171,13 @@ export default function useVivaWallet() {
         } catch (error) {
             console.log(error)
             return false
+        } finally {
+            setLoading(false)
         }
     }
 
     return {
+        loading,
         allOrders,
         getAllOrders,
         setAllOrders,

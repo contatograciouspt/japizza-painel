@@ -46,7 +46,7 @@ export default function TabelaPedidosCustomizada() {
     const [newStatus, setNewStatus] = React.useState("")
     const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false)
     const [selectedOrderToDelete, setSelectedOrderToDelete] = React.useState(null)
-    const { getAllOrders, removeOrderFromLocalStorage, deleteOrderByID, updateStatusOrderByID } = useVivaWallet()
+    const { getAllOrders, loading, removeOrderFromLocalStorage, deleteOrderByID, updateStatusOrderByID } = useVivaWallet()
     const {
         isOrderModalOpen,
         selectedOrder,
@@ -212,8 +212,8 @@ export default function TabelaPedidosCustomizada() {
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Button onClick={handleUpdateStatus} color="green">
-                        Confirmar
+                    <Button disabled={loading} onClick={handleUpdateStatus} color="green">
+                        {loading ? 'Atualizando...' : 'Atualizar Status'}
                     </Button>
                     <Button onClick={handleCloseStatusModal}>
                         Cancelar
