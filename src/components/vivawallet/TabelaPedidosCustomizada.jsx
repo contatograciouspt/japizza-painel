@@ -256,9 +256,8 @@ export default function TabelaPedidosCustomizada() {
                                 <p><strong>Frete:</strong> {selectedOrder.frete.toFixed(2)} €</p>
                                 <p><strong>Retirada na Loja: </strong>{selectedOrder.retiradaNaLoja ? 'Sim' : 'Não'}</p>
                                 <p><strong>Método de Pagamento:</strong> {selectedOrder.paymentMethod}</p>
-                                {selectedOrder.discount > 0 && (
-                                    <p><strong>Desconto:</strong> {formatEuro(selectedOrder.discount)}</p>
-                                )}
+                                <p><strong>Cupom:</strong> {selectedOrder.cupom}</p>
+                                <p><strong>Desconto:</strong> {selectedOrder.discount} €</p>
                             </div>
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Itens do Pedido</h3>
