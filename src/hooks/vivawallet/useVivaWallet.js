@@ -151,32 +151,50 @@ export default function useVivaWallet() {
         setLoading(true)
         try {
             const response = await axios.put(`${updateOrder}/${id}`, { status: newStatus })
+
             if (response.status === 200) {
-                // If status is "Pago", send to ZoneSoft
                 if (newStatus === "Pago") {
                     const order = allOrders.find(order => order._id === id)
                     if (order?.orderCode) {
-                        await axios.post(`${orderCodeUrl}`, {
-                            orderCode: order.orderCode
-                        })
+                        try {
+                            await axios.post(`${orderCodeUrl}`, {
+                                orderCode: order.orderCode
+                            })
+                            // Only update state if ZoneSoft request succeeds
+                            const updatedOrders = allOrders.map(order =>
+                                order._id === id ? { ...order, status: newStatus } : order
+                            )
+                            setAllOrders(updatedOrders)
+                            saveOrdersToLocalStorage(updatedOrders)
+                            return { success: true }
+                        } catch (error) {
+                            return {
+                                success: false,
+                                error: "Não foi possível atualizar o pedido, problema na comunicação com ZoneSoft"
+                            }
+                        }
                     }
+                } else {
+                    // For non-"Pago" status updates
+                    const updatedOrders = allOrders.map(order =>
+                        order._id === id ? { ...order, status: newStatus } : order
+                    )
+                    setAllOrders(updatedOrders)
+                    saveOrdersToLocalStorage(updatedOrders)
+                    return { success: true }
                 }
-
-                const updatedOrders = allOrders.map(order =>
-                    order._id === id ? { ...order, status: newStatus } : order
-                )
-                setAllOrders(updatedOrders)
-                saveOrdersToLocalStorage(updatedOrders)
-                return true
             }
-            return false
+            return { success: false }
         } catch (error) {
-            console.log(error)
-            return false
+            return {
+                success: false,
+                error: "Erro ao atualizar status do pedido"
+            }
         } finally {
             setLoading(false)
         }
     }
+
 
     return {
         loading,

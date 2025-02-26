@@ -2,10 +2,10 @@ import React from "react"
 import NotFound from "../table/NotFound"
 import useVivaWallet from "@/hooks/vivawallet/useVivaWallet"
 import { FaShoppingCart, FaTrash, FaEdit } from "react-icons/fa"
+import PaginacaoTabelaCustomizada from "./PaginacaoTabelaCustomizada"
 import useTabelaPedidosCustomizados from "@/hooks/tabelapedidos/useTabelaPedidosCustomizados"
 import { FaCheckCircle, FaExclamation, FaTimesCircle } from "react-icons/fa"
 import { Table, TableCell, TableContainer, TableBody, TableHeader, Button, Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui"
-import PaginacaoTabelaCustomizada from "./PaginacaoTabelaCustomizada"
 
 function StatusBadge({ status }) {
     let Icon
@@ -116,13 +116,28 @@ export default function TabelaPedidosCustomizada() {
     // Função para lidar com a atualização do status do pedido
     const handleUpdateStatus = async () => {
         if (selectedStatusOrder && newStatus) {
-            const sucess = await updateStatusOrderByID(selectedStatusOrder._id, newStatus)
-            if (sucess) {
-                getAllOrders()
-                window.location.reload()
+            const result = await updateStatusOrderByID(selectedStatusOrder._id, newStatus)
+            if (result.success) {
                 handleCloseStatusModal()
+            } else {
+                // Display error message to user
+                alert(result.error || "Erro ao atualizar status do pedido")
             }
         }
+    }
+
+
+    // formatar Data e Hora
+    const formatDateAndTime = (dateString) => {
+        const date = new Date(dateString)
+        const day = date.getDate()
+        const month = date.getMonth() + 1
+        const year = date.getFullYear()
+        const hours = date.getHours()
+        const minutes = date.getMinutes()
+        const formattedDate = `${day}/${month}/${year}`
+        const formattedTime = `${hours}:${minutes}`
+        return `${formattedDate} ${formattedTime}`
     }
 
     return (
@@ -251,7 +266,7 @@ export default function TabelaPedidosCustomizada() {
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Detalhes do Pedido</h3>
                                 <hr className="mb-2" />
-                                <p><strong>Data/Hora:</strong> {formatDate(selectedOrder.createdAt)}</p>
+                                <p><strong>Data/Hora:</strong> {formatDateAndTime(selectedOrder.createdAt)}</p>
                                 <p><strong>Valor Total:</strong> {formatEuro(selectedOrder.amount)}</p>
                                 <p><strong>Frete:</strong> {selectedOrder.frete.toFixed(2)} €</p>
                                 <p><strong>Retirada na Loja: </strong>{selectedOrder.retiradaNaLoja ? 'Sim' : 'Não'}</p>
