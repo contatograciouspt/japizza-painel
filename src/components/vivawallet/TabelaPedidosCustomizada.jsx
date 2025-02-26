@@ -120,13 +120,12 @@ export default function TabelaPedidosCustomizada() {
             if (result.success) {
                 handleCloseStatusModal()
                 getAllOrders() // Refresh orders list
+                window.location.reload()
             } else {
                 alert(result.error || "Erro ao atualizar status do pedido")
             }
         }
     }
-
-
 
     // formatar Data e Hora
     const formatDateAndTime = (dateString) => {
