@@ -119,12 +119,13 @@ export default function TabelaPedidosCustomizada() {
             const result = await updateStatusOrderByID(selectedStatusOrder._id, newStatus)
             if (result.success) {
                 handleCloseStatusModal()
+                getAllOrders() // Refresh orders list
             } else {
-                // Display error message to user
                 alert(result.error || "Erro ao atualizar status do pedido")
             }
         }
     }
+
 
 
     // formatar Data e Hora
